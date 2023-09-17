@@ -1,6 +1,6 @@
 --[[
 About this system:
-This system is an anti-cheat bypass system
+This system is an anti-cheat and Loading screen bypass system
 ]]
 
 local Vortex = {}
@@ -30,7 +30,7 @@ end
 --Msgreq("","",999999999,"Hide Notify","")
 ]]
 
-function Vortex:BypassLoadingScreen()
+function BypassLoadingScreen()
 local mt = getrawmetatable(game)
 local oldnc = mt.__namecall
 local oldidx = mt.__index
@@ -59,7 +59,7 @@ end)
 setreadonly(mt, true)
 end
 
-function Vortex:GUID(ignorelist,GUIDtoggle)
+function GUID(ignorelist,GUIDtoggle)
  local GUID = HttpService:GenerateGUID(GUIDtoggle)
 
      if ignorelist == "-" then
@@ -107,7 +107,7 @@ for _, v in next, getgc(true) do
 end
 end
 
-function Vortex:AdonisBypass(versionbypass)
+function AdonisBypass(versionbypass)
      if versionbypass == "V1" then
           FuckAdonisV1()
      elseif versionbypass == "V2" then
