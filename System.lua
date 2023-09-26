@@ -470,7 +470,7 @@ local HookChat = function(Bar)
                             sendEnabled = true
                             target = Message:sub(2)
                         else
-                            properties.Text = "[RCT]  Invalid language"
+                            properties.Text = "[Vortex]  Invalid language"
                             StarterGui:SetCore("ChatMakeSystemMessage", properties)
                         end
                     elseif sendEnabled then
@@ -504,11 +504,3 @@ BindHook['Event']:Connect(function()
     CBar = LP['PlayerGui'].Chat['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar
     HookChat(CBar)
 end)
-
-if #missing > 0 then
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Vortex Translator",
-        Text = "Your exploit is not supported. We recommend you use Synapse or Fluxus"
-    })
-    return
-end
