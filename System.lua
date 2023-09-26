@@ -421,7 +421,7 @@ end
 function get(plr, msg)
     local tab = translateFrom(msg)
     local translation = tab[1]
-    if translation then
+    if translation and sendEnabled == true then
         properties.Text = "("..tab[2]:upper()..") ".."[".. plr.Name .."]: "..translation
         StarterGui:SetCore("ChatMakeSystemMessage", properties)
     end
