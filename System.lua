@@ -399,7 +399,7 @@ game:GetService("StarterGui"):SetCore("SendNotification",
     {
         Title = "Vortex Translator",
         Text = "Thanks for using Vortex Translator. The pastebin link to see the translate cods has been coppied to your clipboard.",
-        setclipboard ("https://pastebin.com/raw/Y312VK60"),
+        --setclipboard ("https://pastebin.com/raw/Y312VK60"),
         Duration = 5
     }
 )
