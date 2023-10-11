@@ -6,29 +6,16 @@ This system is an anti-cheat and Loading screen bypass system
 local Vortex = {}
 local contentprovider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
---local hint = Instance.new("Hint",game:GetService("Workspace"))
---[[
-local NotificationBindable = Instance.new("BindableFunction")
-function Msgreq(Title,Text,Duration,Button1Text,Button2Text)
-game.StarterGui:SetCore("SendNotification", {
-     Title = Title;
-     Text = Text;
-     Icon = "";
-     Duration = Duration;
-     Button1 = Button1Text;
-     Button2 = Button2Text;
-     Callback = NotificationBindable;
-  })
-end
+local StarterGui = game:GetService('StarterGui')
 
-NotificationBindable.OnInvoke = function(result)
-if result == "Hide Notify" then
-        print("FUCK YOU!")
-   end
-end
+local properties = {
+    Color = Color3.new(1,1,0);
+    Font = Enum.Font.SourceSansItalic;
+    TextSize = 16;
+}
 
---Msgreq("","",999999999,"Hide Notify","")
-]]
+properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by anti-cheat systems on the server or client sided."
+StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
 function BypassLoadingScreen()
 local mt = getrawmetatable(game)
@@ -107,12 +94,104 @@ for _, v in next, getgc(true) do
 end
 end
 
+local Config = {
+    ["Adonis"] = true,
+    ["Enable Kill Logs"] = true
+}
+
+local function performKillLog(...)
+if Config["Enable Kill Logs"] then
+warn("VORTEX ANTI CHEAT BYPASS [ADONIS VERSION]", ...)
+properties.Text = "Adonis Detected Break | Anti-Log"
+StarterGui:SetCore("ChatMakeSystemMessage",properties)
+end
+end
+
+local function breakFunction()
+return task.wait(10e10)
+end;
+
+local function find(gcObject, ...)
+    local gcResult = true;
+    for _, constant in next, {...} do
+        if not table.find(gcObject, constant) then
+            gcResult = false
+            break
+        end
+    end
+    if gcResult then return gcObject end;
+    return nil;
+end
+
+local SearchFunctions = {
+    GarbageCollection = {
+        ConstantsLookup = function(...) 
+            for _, gcObject in next, getgc() do
+                if type(gcObject) == "function" and islclosure(gcObject) then
+                    return find(debug.getconstants(gcObject), ...)
+                end
+            end
+        end,
+        UpValuesLookup = function(...) 
+            for _, gcObject in next, getgc() do
+                if type(gcObject) == "function" and islclosure(gcObject) then
+                    return find(debug.getupvalues(gcObject), ...)
+                end
+            end
+        end,
+        FunctionNameLookup = function(functionName)
+            for _, gcObject in next, getgc() do
+                if type(gcObject) == "function" and islclosure(gcObject) and getinfo(gcObject).name == functionName then
+                    return gcObject
+                end
+            end
+        end,
+    },
+    Registry = {
+        ConstantsLookup = function(...) 
+            for _, RegObject in next, getreg() do
+                if type(RegObject) == "function" and islclosure(RegObject) then
+                    return find(debug.getconstants(RegObject), ...)
+                end
+            end
+        end,
+        UpValuesLookup = function(...) 
+            for _, RegObject in next, getreg() do
+                if type(RegObject) == "function" and islclosure(RegObject) then
+                    return find(debug.getupvalues(RegObject), ...)
+                end
+            end
+        end,
+        FunctionNameLookup = function(functionName)
+            for _, RegObject in next, getgc() do
+                if type(RegObject) == "function" and islclosure(RegObject) and getinfo(RegObject).name == functionName then
+                    return RegObject
+                end
+            end
+        end,
+    }
+}
+
+local function FuckAdonisV3()
+if Config["Adonis"] then
+    local detectedFunction = SearchFunctions.GarbageCollection.ConstantsLookup("_", "crash", ":: Adonis Anti Cheat::", "Detected");
+    if detectedFunction then
+        performKillLog("{Adonis} Detected Break");
+        hookfunction(detectedFunction, breakFunction)
+	properties.Text = "Bypassed Anti-Cheat 🐧"
+        StarterGui:SetCore("ChatMakeSystemMessage", properties)
+    end
+end
+end
+
 function AdonisBypass(versionbypass)
-     if versionbypass == "V1" then
+     if versionbypass == "v1" or versionbypass == "V1" then
           FuckAdonisV1()
-     elseif versionbypass == "V2" then
+     elseif versionbypass == "v2" or versionbypass == "V2" then
           FuckAdonisV2()
-     elseif versionbypass == "Auto" then
+     elseif versionbypass == "v3" or versionbypass == "V3" then
+          FuckAdonisV3()
+     elseif versionbypass == "auto" or versionbypass == "Auto" then
           local success, result = pcall(function()
                     FuckAdonisV1()
           end)
@@ -125,10 +204,7 @@ function AdonisBypass(versionbypass)
      end
 end
 
---[[
-    R(oblox)C(hat)T(ranslate)
-    Made by Gabe.#7458
---]]
+-- Roblox chat translator:
 
 if not game['Loaded'] then game['Loaded']:Wait() end; repeat wait(.06) until game:GetService('Players').LocalPlayer ~= nil
 local YourLang = "en" 
@@ -329,7 +405,6 @@ do -- init
     bl = InitialReq.Body:match('"cfb2h":"(.-)"')
 end
 
-local HttpService = game:GetService("HttpService")
 function jsonE(o)
     return HttpService:JSONEncode(o)
 end
@@ -381,19 +456,12 @@ end
 
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
-local StarterGui = game:GetService('StarterGui')
 for i=1, 15 do
     local r = pcall(StarterGui["SetCore"])
     if r then break end
     game:GetService('RunService').RenderStepped:wait()
 end
 wait()
-
-local properties = {
-    Color = Color3.new(1,1,0);
-    Font = Enum.Font.SourceSansItalic;
-    TextSize = 16;
-}
 
 game:GetService("StarterGui"):SetCore("SendNotification",
     {
