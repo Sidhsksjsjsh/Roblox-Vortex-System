@@ -328,7 +328,7 @@ Players.PlayerAdded:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
 end)
 
-Players.PlayerRemove:Connect(function(player)
+Players.PlayerRemoving:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
 end)
 
