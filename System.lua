@@ -256,9 +256,9 @@ local function checkDeathByDamage(character)
     local humanoid = character:WaitForChild("Humanoid")
     local damaged = false
 
-    humanoid.TakeDamage:Connect(function()
-        damaged = true
-    end)
+    --humanoid.TakeDamage:Connect(function()
+        --damaged = true
+    --end)
 
     humanoid.Died:Connect(function()
         if damaged == true then
