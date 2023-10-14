@@ -242,9 +242,11 @@ local function checkSitting(player)
     local char = player.Character
     if char then
         local humanoid = char:FindFirstChildOfClass("Humanoid")
-        if humanoid and humanoid.Sit then
-            Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Sitting!")
+	humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
+           if humanoid and humanoid.Sit then
+              Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Sitting!")
         end
+	end)
     end
 end
 
@@ -306,7 +308,7 @@ for _, player in pairs(Players:GetPlayers()) do
 	detectSpeed(player)
 	checkDeathByDamage(player.Character)
 	checkSitting(player)
-	checkGravity(player)
+	--checkGravity(player)
 	handleSwimming(player.Character)
     end
 end
@@ -317,9 +319,17 @@ Players.PlayerAdded:Connect(function(player)
 	detectSpeed(player)
 	checkDeathByDamage(player.Character)
 	checkSitting(player)
-	checkGravity(player)
+	--checkGravity(player)
 	handleSwimming(player.Character)
     end
+end)
+
+Players.PlayerAdded:Connect(function(player)
+	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
+end)
+
+Players.PlayerRemoved:Connect(function(player)
+	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
 end)
 
 -- Roblox chat translator:
