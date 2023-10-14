@@ -8,6 +8,7 @@ local contentprovider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService('StarterGui')
 local RunService = game:GetService("RunService")
+local oldgrav = game:GetService("Workspace").Gravity
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -180,7 +181,7 @@ local SearchFunctions = {
 
 local function FuckAdonisV3()
 if Config["Adonis"] then
-    local detectedFunction = SearchFunctions.GarbageCollection.ConstantsLookup("_", "crash", ":: Adonis Anti Cheat::", "Detected");
+    local detectedFunction = SearchFunctions.GarbageCollection.ConstantsLookup("_", "crash", "::Adonis Anti Cheat ::", "Detected");
     if detectedFunction then
         performKillLog("{Adonis} Detected Break");
         hookfunction(detectedFunction, breakFunction)
@@ -213,6 +214,39 @@ end
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
+
+--local DEFAULT_GRAVITY = 196.2
+local THRESHOLD = 10
+local function checkGravity(player)
+    local char = player.Character
+    if char then
+        local humanoid = char:FindFirstChildOfClass("Humanoid")
+        if humanoid and (humanoid.Gravity < oldgrav - THRESHOLD or humanoid.Gravity > oldgrav + THRESHOLD) then
+            Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") having unusual or suspicious gravity!")
+        end
+    end
+end
+
+local function handleSwimming(char)
+    local humanoid = char:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.StateChanged:Connect(function(_, newState)
+            if newState == Enum.HumanoidStateType.Swimming then
+                Toast("[ Vortex Detector ]: " .. tostring(char.Parent.Name) .. " Swimming!")
+            end
+        end)
+    end
+end
+
+local function checkSitting(player)
+    local char = player.Character
+    if char then
+        local humanoid = char:FindFirstChildOfClass("Humanoid")
+        if humanoid and humanoid.Sit then
+            Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Sitting!")
+        end
+    end
+end
 
 local FLY_DETECTION_HEIGHT = 50
 local function detectExploits(player)
@@ -271,6 +305,9 @@ for _, player in pairs(Players:GetPlayers()) do
         detectExploits(player)
 	detectSpeed(player)
 	checkDeathByDamage(player.Character)
+	checkSitting(player)
+	checkGravity(player)
+	handleSwimming(player.Character)
     end
 end
 
@@ -279,6 +316,9 @@ Players.PlayerAdded:Connect(function(player)
         detectExploits(player)
 	detectSpeed(player)
 	checkDeathByDamage(player.Character)
+	checkSitting(player)
+	checkGravity(player)
+	handleSwimming(player.Character)
     end
 end)
 
