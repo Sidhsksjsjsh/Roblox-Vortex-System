@@ -7,6 +7,7 @@ local Vortex = {}
 local contentprovider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService('StarterGui')
+local RunService = game:GetService("RunService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -14,8 +15,13 @@ local properties = {
     TextSize = 16;
 }
 
-properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by anti-cheat systems on the server or client sided."
+properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat."
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
+
+local function Toast(title)
+properties.Text = title
+StarterGui:SetCore("ChatMakeSystemMessage", properties)
+end
 
 function BypassLoadingScreen()
 local mt = getrawmetatable(game)
@@ -178,7 +184,7 @@ if Config["Adonis"] then
     if detectedFunction then
         performKillLog("{Adonis} Detected Break");
         hookfunction(detectedFunction, breakFunction)
-	properties.Text = "Bypassed Anti-Cheat 🐧"
+	properties.Text = "Bypassed Adonis Anti-Cheat 🐧"
         StarterGui:SetCore("ChatMakeSystemMessage", properties)
     end
 end
@@ -203,6 +209,82 @@ function AdonisBypass(versionbypass)
           warn("Invalid Argument #1 \nargument 'version_type'")
      end
 end
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
+
+local FLY_DETECTION_HEIGHT = 50
+local function detectExploits(player)
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") and character:FindFirstChild("HumanoidRootPart") then
+        local humanoid = character.Humanoid
+        local humanoidRootPart = character.HumanoidRootPart
+
+        humanoidRootPart.Touched:Connect(function(hit)
+            if hit:IsA("BasePart") and hit.CanCollide then
+                local isInside = humanoidRootPart.Position.Y > hit.Position.Y and humanoidRootPart.Position.Y < hit.Position.Y + hit.Size.Y
+                if isInside then
+                    Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Currently Using Noclip!")
+                end
+            end
+        end)
+
+        RunService.RenderStepped:Connect(function()
+            if humanoid.FloorMaterial == nil and humanoid:GetState() ~= Enum.HumanoidStateType.Freefall and humanoidRootPart.Position.Y > FLY_DETECTION_HEIGHT then
+                Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Flying!")
+            end
+        end)
+    end
+end
+
+local MAX_WALKSPEED = 32
+local function detectSpeed(player)
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character.Humanoid
+        
+        humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if humanoid.WalkSpeed > MAX_WALKSPEED then
+                Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .." (@" .. tostring(player.Name) .. ") Is Using Speed ​​Scripts!")
+            end
+        end)
+    end
+end
+
+local function checkDeathByDamage(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    local damaged = false
+
+    humanoid.TakeDamage:Connect(function()
+        damaged = true
+    end)
+
+    humanoid.Died:Connect(function()
+        if damaged == true then
+            Toast("[ Vortex Detector ]: " .. tostring(character.Parent.Name) .. " Dies from damage.")
+            damaged = false
+	else
+	    Toast("[ Vortex Detector ]: " .. tostring(character.Parent.Name) .. " Died due to resetting the character.")
+        end
+    end)
+end
+
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+        detectExploits(player)
+	detectSpeed(player)
+	checkDeathByDamage(player.Character)
+    end
+end
+
+Players.PlayerAdded:Connect(function(player)
+    if player ~= LocalPlayer then
+        detectExploits(player)
+	detectSpeed(player)
+	checkDeathByDamage(player.Character)
+    end
+end)
 
 -- Roblox chat translator:
 
