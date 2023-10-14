@@ -230,7 +230,7 @@ end
 local function handleSwimming(char)
     local humanoid = char:FindFirstChildOfClass("Humanoid")
     if humanoid then
-        humanoid.StateChanged:Connect(function(_, newState)
+        humanoid.StateChanged:Connect(function(_,newState)
             if newState == Enum.HumanoidStateType.Swimming then
                 Toast("[ Vortex Detector ]: " .. tostring(char.Parent.Name) .. " Swimming!")
             end
@@ -289,7 +289,7 @@ local function detectSpeed(player)
 end
 
 local function checkDeathByDamage(character)
-    local humanoid = character:WaitForChild("Humanoid")
+    local humanoid = character.Humanoid
     local damaged = false
 
     humanoid.Died:Connect(function()
@@ -328,7 +328,7 @@ Players.PlayerAdded:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
 end)
 
-Players.PlayerRemoved:Connect(function(player)
+Players.PlayerRemove:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
 end)
 
