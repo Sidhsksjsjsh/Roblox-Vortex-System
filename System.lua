@@ -350,9 +350,6 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
---Players.PlayerCharacterAdded:Connect(checkDeathByDamage)
---Players.PlayerCharacterAdded:Connect(handleSwimming)
-
 Players.PlayerAdded:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
 end)
