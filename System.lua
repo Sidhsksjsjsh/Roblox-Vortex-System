@@ -9,6 +9,7 @@ local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService('StarterGui')
 local RunService = game:GetService("RunService")
 local oldgrav = game:GetService("Workspace").Gravity
+local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -216,6 +217,26 @@ function Vortex:AdonisBypass(versionbypass)
      end
 end
 
+function Vortex:Write(v,a)
+writefile(v,a)
+end
+
+function Vortex:Read(v)
+   return readfile(v)
+end
+
+function Vortex:IsFile(v)
+    return isfile(v)
+end
+
+function Vortex:Run(v)
+loadstring(v)()
+end
+
+function Vortex:Connection(v)
+   return http(v)
+end
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
@@ -322,12 +343,15 @@ Players.PlayerAdded:Connect(function(player)
     if player ~= LocalPlayer then
         detectExploits(player)
 	detectSpeed(player)
-	checkDeathByDamage(player.Character)
+	--checkDeathByDamage(player.Character)
 	checkSitting(player)
 	--checkGravity(player)
-	handleSwimming(player.Character)
+	--handleSwimming(player.Character)
     end
 end)
+
+Players.PlayerCharacterAdded:Connect(checkDeathByDamage)
+Players.PlayerCharacterAdded:Connect(handleSwimming)
 
 Players.PlayerAdded:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
