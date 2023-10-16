@@ -343,15 +343,15 @@ Players.PlayerAdded:Connect(function(player)
     if player ~= LocalPlayer then
         detectExploits(player)
 	detectSpeed(player)
-	--checkDeathByDamage(player.Character)
+	checkDeathByDamage(player.Character)
 	checkSitting(player)
 	--checkGravity(player)
-	--handleSwimming(player.Character)
+	handleSwimming(player.Character)
     end
 end)
 
-Players.PlayerCharacterAdded:Connect(checkDeathByDamage)
-Players.PlayerCharacterAdded:Connect(handleSwimming)
+--Players.PlayerCharacterAdded:Connect(checkDeathByDamage)
+--Players.PlayerCharacterAdded:Connect(handleSwimming)
 
 Players.PlayerAdded:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has joined.")
