@@ -24,7 +24,12 @@ properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end
 
-function BypassLoadingScreen()
+function Vortex:GlobalToast(title)
+properties.Text = title
+StarterGui:SetCore("ChatMakeSystemMessage", properties)
+end
+
+function Vortex:BypassLoadingScreen()
 local mt = getrawmetatable(game)
 local oldnc = mt.__namecall
 local oldidx = mt.__index
@@ -53,7 +58,7 @@ end)
 setreadonly(mt, true)
 end
 
-function GUID(ignorelist,GUIDtoggle)
+function Vortex:GUID(ignorelist,GUIDtoggle)
  local GUID = HttpService:GenerateGUID(GUIDtoggle)
 
      if ignorelist == "-" then
@@ -191,7 +196,7 @@ if Config["Adonis"] then
 end
 end
 
-function AdonisBypass(versionbypass)
+function Vortex:AdonisBypass(versionbypass)
      if versionbypass == "v1" or versionbypass == "V1" then
           FuckAdonisV1()
      elseif versionbypass == "v2" or versionbypass == "V2" then
@@ -332,14 +337,16 @@ Players.PlayerRemoving:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
 end)
 
--- Roblox chat translator:
+return Vortex
+
+--[[Roblox chat translator:
 
 if not game['Loaded'] then game['Loaded']:Wait() end; repeat wait(.06) until game:GetService('Players').LocalPlayer ~= nil
 local YourLang = "en" 
 
 local googlev = isfile'googlev.txt' and readfile'googlev.txt' or ''
 
-function googleConsent(Body) 
+local function googleConsent(Body) 
     local args = {}
 
     for match in Body:gmatch('<input type="hidden" name=".-" value=".-">') do
@@ -481,7 +488,7 @@ local languages = {
     zu = "Zulu"
 };
 
-function find(lang)
+local function find(lang)
     for i,v in pairs(languages) do
         if i == lang or v == lang then
             return i
@@ -489,17 +496,17 @@ function find(lang)
     end
 end
 
-function isSupported(lang)
+local function isSupported(lang)
     local key = find(lang)
     return key and true or false 
 end
 
-function getISOCode(lang)
+local function getISOCode(lang)
     local key = find(lang)
     return key
 end
 
-function stringifyQuery(dataFields)
+local function stringifyQuery(dataFields)
     local data = ""
     for k, v in pairs(dataFields) do
         if type(v) == "table" then
@@ -533,14 +540,15 @@ do -- init
     bl = InitialReq.Body:match('"cfb2h":"(.-)"')
 end
 
-function jsonE(o)
+local function jsonE(o)
     return HttpService:JSONEncode(o)
 end
-function jsonD(o)
+
+local function jsonD(o)
     return HttpService:JSONDecode(o)
 end
 
-function translate(str, to, from)
+local function translate(str, to, from)
     reqid+=10000
     from = from and getISOCode(from) or 'auto'
     to = to and getISOCode(to) or 'en'
@@ -603,7 +611,7 @@ game:GetService("StarterGui"):SetCore("SendNotification",
 properties.Text = "[Vortex] pastebin link to Key letters/Words has been copied to clipboard. If you have script in autoexecute and join murder mystery 2 take out of auto execute and rejoin this will make the chat break (Wont be able to chat at all.)."
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
-function translateFrom(message)
+local function translateFrom(message)
     local translation = translate(message, YourLang)
 
     local text
@@ -614,7 +622,7 @@ function translateFrom(message)
     return {text, translation.from.language}
 end
 
-function get(plr, msg)
+local function get(plr, msg)
     local tab = translateFrom(msg)
     local translation = tab[1]
     if translation and sendEnabled == true then
@@ -637,14 +645,14 @@ end)
 local sendEnabled = false
 local target = ""
 
-function translateTo(message, target)
+local function translateTo(message, target)
     target = target:lower() 
     local translation = translate(message, target, "auto")
 
     return translation.text
 end
 
-function disableSend()
+local function disableSend()
     sendEnabled = false
     properties.Text = "[Vortex] Sending Disabled"
     StarterGui:SetCore("ChatMakeSystemMessage", properties)
@@ -700,3 +708,4 @@ BindHook['Event']:Connect(function()
     CBar = LP['PlayerGui'].Chat['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar
     HookChat(CBar)
 end)
+]]
