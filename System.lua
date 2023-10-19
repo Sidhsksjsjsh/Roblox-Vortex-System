@@ -329,7 +329,7 @@ local function checkDeathByDamage(character)
         end
     end)
 end
-
+--[[
 local path = PathfindingService:CreatePath({
     AgentRadius = 2,
     AgentHeight = 5,
@@ -337,12 +337,25 @@ local path = PathfindingService:CreatePath({
     AgentJumpHeight = 10,
     AgentMaxSlope = 45,
 })
+]]
+
+local path = PathfindingService:CreatePath()
 
 function Vortex:PathFinding(targetPosition)
     path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
 
     -- if path.Status == Enum.PathStatus.Complete then
-        path:MoveTo(LocalPlayer.Character.Humanoid)
+local waypoints = path:GetWaypoints()
+		local distance 
+		for waypointIndex, waypoint in pairs(waypoints) do
+			local waypointPosition = waypoint.Position
+			LocalPlayer.Character.Humanoid:MoveTo(waypointPosition)
+			repeat 
+				distance = (waypointPosition - LocalPlayer.Character.Humanoid.Parent.PrimaryPart.Position).magnitude
+			wait()
+			until distance <= 5
+	end
+
         Toast("[ Vortex AI ]: Path found! the character is walking towards the player character's position. \nAI STATUS: " .. tostring(path.Status))
     -- else
         -- Toast("[ Vortex AI ]: ERROR! Failed to find path.")
