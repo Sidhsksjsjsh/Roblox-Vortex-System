@@ -10,6 +10,7 @@ local StarterGui = game:GetService('StarterGui')
 local RunService = game:GetService("RunService")
 local oldgrav = game:GetService("Workspace").Gravity
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
+local PathfindingService = game:GetService("PathfindingService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -326,6 +327,25 @@ local function checkDeathByDamage(character)
 	    Toast("[ Vortex Detector ]: " .. tostring(character.Parent.Name) .. " Died due to resetting the character.")
         end
     end)
+end
+
+local path = PathfindingService:CreatePath({
+    AgentRadius = 2,
+    AgentHeight = 5,
+    AgentCanJump = true,
+    AgentJumpHeight = 10,
+    AgentMaxSlope = 45,
+})
+
+function Vortex:PathFinding(targetPosition)
+    path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
+
+    if path.Status == Enum.PathStatus.Complete then
+        path:MoveTo(LocalPlayer.Character.Humanoid)
+        Toast("[ Vortex AI ]: Path found! the character is walking towards the player character's position.")
+    else
+        Toast("[ Vortex AI ]: ERROR! Failed to find path.")
+    end
 end
 
 for _, player in pairs(Players:GetPlayers()) do
