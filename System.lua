@@ -11,6 +11,7 @@ local RunService = game:GetService("RunService")
 local oldgrav = game:GetService("Workspace").Gravity
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local PathfindingService = game:GetService("PathfindingService")
+local chat = game:GetService("Chat")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -340,12 +341,16 @@ local path = PathfindingService:CreatePath({
 function Vortex:PathFinding(targetPosition)
     path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
 
-    if path.Status == Enum.PathStatus.Complete then
+    -- if path.Status == Enum.PathStatus.Complete then
         path:MoveTo(LocalPlayer.Character.Humanoid)
-        Toast("[ Vortex AI ]: Path found! the character is walking towards the player character's position.")
-    else
-        Toast("[ Vortex AI ]: ERROR! Failed to find path.")
-    end
+        Toast("[ Vortex AI ]: Path found! the character is walking towards the player character's position. \nAI STATUS: " .. tostring(path.Status))
+    -- else
+        -- Toast("[ Vortex AI ]: ERROR! Failed to find path.")
+    -- end
+end
+
+function Vortex:SystemChatted(cht)
+	chat:Chat(LocalPlayer.Character,cht)
 end
 
 for _, player in pairs(Players:GetPlayers()) do
