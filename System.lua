@@ -342,9 +342,8 @@ local path = PathfindingService:CreatePath({
 local path = PathfindingService:CreatePath()
 
 function Vortex:PathFinding(targetPosition)
-    path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
-
-    -- if path.Status == Enum.PathStatus.Complete then
+path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
+	
 local waypoints = path:GetWaypoints()
 		local distance 
 		for waypointIndex, waypoint in pairs(waypoints) do
@@ -356,10 +355,11 @@ local waypoints = path:GetWaypoints()
 			until distance <= 5
 	end
 
-        Toast("[ Vortex AI ]: Path found! the character is walking towards the player character's position. \nAI STATUS: " .. tostring(path.Status))
-    -- else
-        -- Toast("[ Vortex AI ]: ERROR! Failed to find path.")
-    -- end
+	if path.Status == Enum.PathStatus.Success then
+           Toast("[ Vortex AI ]: Path found!")
+    else
+           Toast("[ Vortex AI ]: Failed to find path.")
+    end
 end
 
 function Vortex:SystemChatted(cht)
