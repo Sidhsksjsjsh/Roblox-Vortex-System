@@ -439,6 +439,26 @@ function Vortex:PetDisabled()
 	Toast("[ Vortex PET ]: Pet Disabled!")
 end
 
+function Vortex:CheckError(str)
+local index,error = pcall(function()
+	loadstring(str)()
+end)
+
+if not index then
+	Toast("[ Vortex Code Error ]: " .. error)
+end
+end
+
+function Vortex:CheckErrorFromHTTP(str)
+local index,error = pcall(function()
+	loadstring(game:HttpGet(str))()
+end)
+
+if not index then
+	Toast("[ Vortex Code Error ]: " .. error)
+end
+end
+
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
         detectExploits(player)
