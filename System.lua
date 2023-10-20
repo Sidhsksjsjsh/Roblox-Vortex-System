@@ -13,6 +13,11 @@ local http = (syn and syn.request) or http and http.request or http_request or (
 local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
 local PetOwner = ""
+local bannedWords = {
+    "mom",
+    "dad",
+    "parent"
+}
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -398,15 +403,28 @@ function Vortex:SystemChatted(cht)
 	chat:Chat(LocalPlayer.Character,cht)
 end
 
+local function isBannedWord(message)
+    for _, word in pairs(bannedWords) do
+        if string.match(string.lower(message),word) then
+            return true
+        end
+    end
+    return false
+end
+
+function Vortex:addBannedWord(word)
+    table.insert(bannedWords,word)
+end
+
 local PetCommander = false
 local function ActPet(player,msg)
 msg = msg:lower()
 local str
 local space = string.find(msg," ")
 if space then
-   str = string.sub(msg,2,space-1)
+   str = string.sub(msg,1,space-1)
 else
-   str = string.sub(msg,2)
+   str = string.sub(msg,1)
 end
 -- _str_index(str)
 if player == PetOwner and PetCommander == true then
@@ -483,7 +501,11 @@ end)
 for i,v in pairs(game.Players:GetChildren()) do
 if v.Name ~= LocalPlayer then
     v.Chatted:Connect(function(msg)
-        ActPet(v.Name,msg)
+	if isBannedWord(msg) then
+		chat:Chat(LocalPlayer.Character,"Bad Word Detected.")
+	else
+                ActPet(v.Name,msg)
+      end
     end)
 end
 end
@@ -491,7 +513,11 @@ end
 Players.PlayerAdded:Connect(function(player)
 if player.Name ~= LocalPlayer then
     player.Chatted:Connect(function(msg)
-        ActPet(player.Name,msg)
+        if isBannedWord(msg) then
+		chat:Chat(LocalPlayer.Character,"Bad Word Detected.")
+	else
+                ActPet(player.Name,msg)
+      end
     end)
 end
 end)
