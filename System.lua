@@ -400,6 +400,7 @@ end
 
 local PetCommander = false
 local function ActPet(player,msg)
+msg = msg:lower()
 local str
 local space = string.find(msg," ")
 if space then
@@ -409,15 +410,15 @@ else
 end
 -- _str_index(str)
 if player == PetOwner and PetCommander == true then
-	if str:lower() == "come" or str:lower() == "follow me" then
+	if str == "come" or str == "follow me" then
 		PathFinding(player.Character.HumanoidRootPart.Position)
-	elseif str:lower() == "jump" then
+	elseif str == "jump" then
 		LocalPlayer.Character.Humanoid.Jump = true
-	elseif str:lower() == "sit" then
+	elseif str == "sit" then
 		LocalPlayer.Character.Humanoid.Sit = true
-	elseif str:lower() == "kill" then
+	elseif str == "kill" then
 		PathFinding(game.Players[_str_index(string.sub(msg,space+1))].Character.HumanoidRootPart.Position)
-	elseif str:lower() == "find" then
+	elseif str == "find" then
 		PathFinding(game.Players[_str_index(string.sub(msg,space+1))].Character.HumanoidRootPart.Position)
 	else
 		Toast("[ Vortex PET ]: COMMAND NOT FOUND!")
