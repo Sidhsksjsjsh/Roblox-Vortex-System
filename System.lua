@@ -20,6 +20,14 @@ local properties = {
     TextSize = 16;
 }
 
+local function _str_index(str)
+for i,v in pairs(game.Players:GetChildren()) do
+if (string.sub(string.lower(v.DisplayName),1,string.len(str))) == string.lower(str) then
+   return v.Name
+  end
+ end
+end
+
 properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat."
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
@@ -392,13 +400,25 @@ end
 
 local PetCommander = false
 local function ActPet(player,msg)
+local str
+local space = string.find(msg," ")
+if space then
+   str = string.sub(msg,2,space-1)
+else
+   str = string.sub(msg,2)
+end
+-- _str_index(str)
 if player == PetOwner and PetCommander == true then
-	if msg:lower() == "come" or msg:lower() == "follow me" then
+	if str:lower() == "come" or str:lower() == "follow me" then
 		PathFinding(player.Character.HumanoidRootPart.Position)
-	elseif msg:lower() == "jump" then
+	elseif str:lower() == "jump" then
 		LocalPlayer.Character.Humanoid.Jump = true
-	elseif msg:lower() == "sit" then
+	elseif str:lower() == "sit" then
 		LocalPlayer.Character.Humanoid.Sit = true
+	elseif str:lower() == "kill" then
+		PathFinding(game.Players[_str_index(string.sub(msg,space+1))].Character.HumanoidRootPart.Position)
+	elseif str:lower() == "find" then
+		PathFinding(game.Players[_str_index(string.sub(msg,space+1))].Character.HumanoidRootPart.Position)
 	else
 		Toast("[ Vortex PET ]: COMMAND NOT FOUND!")
 	end
