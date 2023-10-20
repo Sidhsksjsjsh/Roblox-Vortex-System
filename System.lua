@@ -441,17 +441,7 @@ end
 
 function Vortex:CheckError(str)
 local index,error = pcall(function()
-	loadstring(str)()
-end)
-
-if not index then
-	Toast("[ Vortex Code Error ]: " .. error)
-end
-end
-
-function Vortex:CheckErrorFromHTTP(str)
-local index,error = pcall(function()
-	loadstring(game:HttpGet(str))()
+	str()
 end)
 
 if not index then
