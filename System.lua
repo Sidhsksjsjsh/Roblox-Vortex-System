@@ -12,6 +12,7 @@ local oldgrav = game:GetService("Workspace").Gravity
 local http = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
+local PetOwner = ""
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -343,7 +344,9 @@ local path = PathfindingService:CreatePath()
 
 function Vortex:PathFinding(targetPosition)
 path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
-	
+
+if path.Status == Enum.PathStatus.Success then
+Toast("[ Vortex AI ]: Path found!")
 local waypoints = path:GetWaypoints()
 		local distance 
 		for waypointIndex, waypoint in pairs(waypoints) do
@@ -354,16 +357,66 @@ local waypoints = path:GetWaypoints()
 			wait()
 			until distance <= 5
 	end
-
-	if path.Status == Enum.PathStatus.Success then
-           Toast("[ Vortex AI ]: Path found!")
     else
            Toast("[ Vortex AI ]: Failed to find path.")
     end
 end
 
+local function PathFinding(targetPosition)
+path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
+
+if LocalPlayer.Character.Humanoid.Sit == true then
+	LocalPlayer.Character.Humanoid.Sit = false
+end
+
+if path.Status == Enum.PathStatus.Success then
+Toast("[ Vortex PET ]: Path found!")
+local waypoints = path:GetWaypoints()
+		local distance 
+		for waypointIndex, waypoint in pairs(waypoints) do
+			local waypointPosition = waypoint.Position
+			LocalPlayer.Character.Humanoid:MoveTo(waypointPosition)
+			repeat 
+				distance = (waypointPosition - LocalPlayer.Character.Humanoid.Parent.PrimaryPart.Position).magnitude
+			wait()
+			until distance <= 5
+	end
+	else
+           Toast("[ Vortex PET ]: Failed to find path.")
+    end
+end
+
 function Vortex:SystemChatted(cht)
 	chat:Chat(LocalPlayer.Character,cht)
+end
+
+local PetCommander = false
+local function ActPet(player,msg)
+if player == PetOwner and PetCommander == true then
+	if msg:lower() == "come" or msg:lower() == "follow me" then
+		PathFinding(player.Character.HumanoidRootPart.Position)
+	elseif msg:lower() == "jump" then
+		LocalPlayer.Character.Humanoid.Jump = true
+	elseif msg:lower() == "sit" then
+		LocalPlayer.Character.Humanoid.Sit = true
+	else
+		Toast("[ Vortex PET ]: COMMAND NOT FOUND!")
+	end
+end
+end
+
+function Vortex:SetOwner(own)
+	PetOwner = own
+end
+
+function Vortex:PetEnabled()
+	PetCommander = true
+	Toast("[ Vortex PET ]: Pet Enabled! Other players will control you like their pet.")
+end
+
+function Vortex:PetDisabled()
+	PetCommander = false
+	Toast("[ Vortex PET ]: Pet Disabled!")
 end
 
 for _, player in pairs(Players:GetPlayers()) do
@@ -394,6 +447,22 @@ end)
 
 Players.PlayerRemoving:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
+end)
+
+for i,v in pairs(game.Players:GetChildren()) do
+if v.Name ~= LocalPlayer then
+    v.Chatted:Connect(function(msg)
+        ActPet(v.Name,msg)
+    end)
+end
+end
+
+Players.PlayerAdded:Connect(function(player)
+if player.Name ~= LocalPlayer then
+    player.Chatted:Connect(function(msg)
+        ActPet(player.Name,msg)
+    end)
+end
 end)
 
 return Vortex
