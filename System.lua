@@ -36,13 +36,13 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 local function Toast(title)
 properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
-CommandPrompt:RequestLine(title)
+--CommandPrompt:RequestLine(title)
 end
 
 function Vortex:GlobalToast(title)
 properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
-CommandPrompt:RequestLine(title)
+--CommandPrompt:RequestLine(title)
 end
 
 function Vortex:BypassLoadingScreen()
