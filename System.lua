@@ -528,13 +528,31 @@ if not index then
 end
 end
 
+local function CheckError(str)
+local index,error = pcall(function()
+	str()
+end)
+
+if not index then
+	cmdInput.Text = error .. "\n" .. "> "
+end
+end
+
+function Vortex:ShowCommandPrompt()
+	cmdFrame.Visible = true
+end
+
 cmdInput.FocusLost:Connect(function(enterPressed)
     if enterPressed then
         local command = cmdInput.Text
         if command == "> exit" then
             cmdFrame.Visible = false
 	elseif command == "> run-http " then
-	    print("coming soon")
+	    CheckError(function()
+		loadstring(game:HttpGet(command:sub(11)))()
+	   end)
+	else
+	     cmdInput.Text = "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
         end
     end
 end)
