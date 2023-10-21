@@ -566,6 +566,16 @@ cmdInput.FocusLost:Connect(function(enterPressed)
 		cmdInput.Text = cmdInput.Text .. "\n" .. "game/server Job ID: " .. tostring(game.JobId) .. "\n" .. "> "
 	elseif command == "> get-game-name" then
 		cmdInput.Text = cmdInput.Text .. "\n" .. "game name: " .. tostring(Asset.Name) .. "\n" .. "> "
+	elseif command:sub(1,22) == "> change-textbox-size " then
+	    CheckError(function()
+		cmdInput.TextSize = tonumber(command:sub(23))
+		cmdInput.Text = cmdInput.Text .. "\n" .. "Texbox Text size successfully changed!" .. "\n" .. "> "
+	   end)
+	elseif command:sub(1,20) == "> change-title-size " then
+	    CheckError(function()
+		titleBar.TextSize = tonumber(command:sub(21))
+		cmdInput.Text = cmdInput.Text .. "\n" .. "Title Text size successfully changed!" .. "\n" .. "> "
+	   end)
 	else
 	     cmdInput.Text = cmdInput.Text .. "\n" .. "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
         end
