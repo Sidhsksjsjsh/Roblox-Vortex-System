@@ -24,6 +24,7 @@ cmdFrame.Position = UDim2.new(0.25, 0, 0.2, 0)
 cmdFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 cmdFrame.BorderSizePixel = 0
 cmdFrame.ClipsDescendants = true
+cmdFrame.Visible = false
 
 local cmdFrameCorner = Instance.new("UICorner")
 cmdFrameCorner.CornerRadius = UDim.new(0.03, 0)
@@ -43,7 +44,7 @@ titleBar.Parent = cmdFrame
 titleBar.Size = UDim2.new(1, 0, 0.05, 0)
 titleBar.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 titleBar.TextColor3 = Color3.fromRGB(0, 255, 150)
-titleBar.Text = "Future Prompt"
+titleBar.Text = "Command Prompt V1.0.0"
 titleBar.Font = Enum.Font.SourceSansSemibold
 
 local closeButton = Instance.new("TextButton")
@@ -534,7 +535,7 @@ local index,error = pcall(function()
 end)
 
 if not index then
-	cmdInput.Text = error .. "\n" .. "> "
+	cmdInput.Text = cmdInput.Text .. "\n" .. error .. "\n" .. "> "
 end
 end
 
@@ -544,16 +545,17 @@ end
 
 cmdInput.FocusLost:Connect(function(enterPressed)
     if enterPressed then
-        local command = cmdInput.Text
+        local lines = cmdInput.Text:split("\n")
+        local command = lines[#lines]
         if command == "> exit" then
             cmdFrame.Visible = false
 	elseif command == "> run-http " then
 	    CheckError(function()
 		loadstring(game:HttpGet(command:sub(11)))()
-		cmdInput.Text = "Executed!" .. "\n" .. "> "
+		cmdInput.Text = cmdInput.Text .. "\n" .. "Executed!" .. "\n" .. "> "
 	   end)
 	else
-	     cmdInput.Text = "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
+	     cmdInput.Text = cmdInput.Text .. "\n" .. "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
         end
     end
 end)
