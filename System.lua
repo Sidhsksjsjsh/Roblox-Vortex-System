@@ -232,6 +232,10 @@ function Vortex:AdonisBypass(versionbypass)
      end
 end
 
+CommandPrompt:AddCommand("> bypass-adonis",function()
+	FuckAdonisV3()
+end)
+
 function Vortex:Write(v,a)
 writefile(v,a)
 end
