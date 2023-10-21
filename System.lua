@@ -13,11 +13,71 @@ local http = (syn and syn.request) or http and http.request or http_request or (
 local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
 local PetOwner = ""
-local bannedWords = {
-    "mom",
-    "dad",
-    "parent"
-}
+local bannedWords = {"mom","dad","parent"}
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local cmdFrame = Instance.new("Frame")
+cmdFrame.Parent = screenGui
+cmdFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
+cmdFrame.Position = UDim2.new(0.25, 0, 0.2, 0)
+cmdFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+cmdFrame.BorderSizePixel = 0
+cmdFrame.ClipsDescendants = true
+
+local cmdFrameCorner = Instance.new("UICorner")
+cmdFrameCorner.CornerRadius = UDim.new(0.03, 0)
+cmdFrameCorner.Parent = cmdFrame
+
+local glowEffect = Instance.new("ImageLabel")
+glowEffect.Parent = cmdFrame
+glowEffect.Size = UDim2.new(1.1, 0, 1.1, 0)
+glowEffect.Position = UDim2.new(-0.05, 0, -0.05, 0)
+glowEffect.Image = "rbxassetid://3570695787" 
+glowEffect.ImageColor3 = Color3.fromRGB(0, 255, 150)
+glowEffect.BackgroundTransparency = 1
+glowEffect.ZIndex = 0
+
+local titleBar = Instance.new("TextLabel")
+titleBar.Parent = cmdFrame
+titleBar.Size = UDim2.new(1, 0, 0.05, 0)
+titleBar.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+titleBar.TextColor3 = Color3.fromRGB(0, 255, 150)
+titleBar.Text = "Future Prompt"
+titleBar.Font = Enum.Font.SourceSansSemibold
+
+local closeButton = Instance.new("TextButton")
+closeButton.Parent = titleBar
+closeButton.Size = UDim2.new(0.03, 0, 1, 0)
+closeButton.Position = UDim2.new(0.97, 0, 0, 0)
+closeButton.BackgroundColor3 = Color3.fromRGB(192, 0, 0)
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Text = "X"
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.BorderSizePixel = 0
+
+closeButton.MouseButton1Click:Connect(function()
+    cmdFrame.Visible = false
+end)
+
+local cmdInput = Instance.new("TextBox")
+cmdInput.Parent = cmdFrame
+cmdInput.Size = UDim2.new(1, -10, 0.9, -titleBar.Size.Y.Offset)
+cmdInput.Position = UDim2.new(0, 5, 0.05, 5)
+cmdInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+cmdInput.TextColor3 = Color3.fromRGB(0, 255, 150)
+cmdInput.TextXAlignment = Enum.TextXAlignment.Left
+cmdInput.TextYAlignment = Enum.TextYAlignment.Top
+cmdInput.MultiLine = true
+cmdInput.ClearTextOnFocus = false
+cmdInput.Font = Enum.Font.Code
+cmdInput.PlaceholderColor3 = Color3.fromRGB(60, 60, 60)
+cmdInput.PlaceholderText = "> Type commands here..."
+cmdInput.BorderSizePixel = 0
+
+local cmdInputCorner = Instance.new("UICorner")
+cmdInputCorner.CornerRadius = UDim.new(0.03, 0)
+cmdInputCorner.Parent = cmdInput
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -467,6 +527,17 @@ if not index then
 	chat:Chat(LocalPlayer.Character,error)
 end
 end
+
+cmdInput.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local command = cmdInput.Text
+        if command == "> exit" then
+            cmdFrame.Visible = false
+	elseif command == "> run-http " then
+	    print("coming soon")
+        end
+    end
+end)
 
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
