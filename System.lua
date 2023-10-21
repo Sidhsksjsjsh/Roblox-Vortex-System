@@ -550,6 +550,7 @@ cmdInput.FocusLost:Connect(function(enterPressed)
 	elseif command == "> run-http " then
 	    CheckError(function()
 		loadstring(game:HttpGet(command:sub(11)))()
+		cmdInput.Text = "Executed!" .. "\n" .. "> "
 	   end)
 	else
 	     cmdInput.Text = "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
