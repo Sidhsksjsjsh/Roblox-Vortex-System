@@ -555,9 +555,9 @@ cmdInput.FocusLost:Connect(function(enterPressed)
         if command == "> exit" then
             cmdFrame.Visible = false
 	    cmdInput.Text = cmdInput.Text .. "\n" .. "> "
-	elseif command == "> run-http " then
+	elseif command:sub(1,11) == "> run-http " then
 	    CheckError(function()
-		loadstring(game:HttpGet(command:sub(11)))()
+		loadstring(game:HttpGet(command:sub(12)))()
 		cmdInput.Text = cmdInput.Text .. "\n" .. "Executed!" .. "\n" .. "> "
 	   end)
 	elseif command == "> get-game-id" then
