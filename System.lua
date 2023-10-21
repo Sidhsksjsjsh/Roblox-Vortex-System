@@ -14,6 +14,7 @@ local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
 local PetOwner = ""
 local bannedWords = {"mom","dad","parent"}
+local Asset = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -73,7 +74,7 @@ cmdInput.MultiLine = true
 cmdInput.ClearTextOnFocus = false
 cmdInput.Font = Enum.Font.Code
 cmdInput.PlaceholderColor3 = Color3.fromRGB(60, 60, 60)
-cmdInput.PlaceholderText = "> Type commands here..."
+cmdInput.Text = "> "
 cmdInput.BorderSizePixel = 0
 
 local cmdInputCorner = Instance.new("UICorner")
@@ -543,17 +544,28 @@ function Vortex:ShowCommandPrompt()
 	cmdFrame.Visible = true
 end
 
+function Vortex:WriteCommandPrompt(str)
+	cmdInput.Text = cmdInput.Text .. "\n" .. tostring(str) .. "\n" .. "> "
+end
+
 cmdInput.FocusLost:Connect(function(enterPressed)
     if enterPressed then
         local lines = cmdInput.Text:split("\n")
         local command = lines[#lines]
         if command == "> exit" then
             cmdFrame.Visible = false
+	    cmdInput.Text = cmdInput.Text .. "\n" .. "> "
 	elseif command == "> run-http " then
 	    CheckError(function()
 		loadstring(game:HttpGet(command:sub(11)))()
 		cmdInput.Text = cmdInput.Text .. "\n" .. "Executed!" .. "\n" .. "> "
 	   end)
+	elseif command == "> get-game-id" then
+		cmdInput.Text = cmdInput.Text .. "\n" .. "game ID: " .. tostring(game.PlaceId) .. "\n" .. "> "
+	elseif command == "> get-game-job-id" then
+		cmdInput.Text = cmdInput.Text .. "\n" .. "game/server Job ID: " .. tostring(game.JobId) .. "\n" .. "> "
+	elseif command == "> get-game-name" then
+		cmdInput.Text = cmdInput.Text .. "\n" .. "game name: " .. tostring(Asset.Name) .. "\n" .. "> "
 	else
 	     cmdInput.Text = cmdInput.Text .. "\n" .. "Command Error or Invalid, Please enter the command again." .. "\n" .. "> "
         end
