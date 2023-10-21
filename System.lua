@@ -14,6 +14,7 @@ local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
 local PetOwner = ""
 local bannedWords = {"mom","dad","parent"}
+local CommandPrompt = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/CommandPrompt/main/prompt.lua"))()
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -35,11 +36,13 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 local function Toast(title)
 properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
+CommandPrompt:RequestLine(title)
 end
 
 function Vortex:GlobalToast(title)
 properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
+CommandPrompt:RequestLine(title)
 end
 
 function Vortex:BypassLoadingScreen()
@@ -470,16 +473,16 @@ local index,error = pcall(function()
 end)
 
 if not index then
-	cmdInput.Text = cmdInput.Text .. "\n" .. error .. "\n" .. "> "
+	CommandPrompt:RequestLine(error)
 end
 end
 
 function Vortex:ShowCommandPrompt()
-	cmdFrame.Visible = true
+	CommandPrompt:Show()
 end
 
 function Vortex:WriteCommandPrompt(str)
-	cmdInput.Text = cmdInput.Text .. "\n" .. tostring(str) .. "\n" .. "> "
+	CommandPrompt:RequestLine(str)
 end
 
 for _, player in pairs(Players:GetPlayers()) do
