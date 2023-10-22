@@ -319,7 +319,7 @@ local function detectExploits(player)
     end
 end
 
-local MAX_WALKSPEED = 32
+local MAX_WALKSPEED = 16
 local function detectSpeed(player)
     local character = player.Character
     if character and character:FindFirstChild("Humanoid") then
@@ -362,7 +362,7 @@ function Vortex:PathFinding(targetPosition)
 path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
 
 if path.Status == Enum.PathStatus.Success then
-Toast("[ Vortex AI ]: Path found!")
+CommandPrompt:AddPrompt("Path found!")
 local waypoints = path:GetWaypoints()
 		local distance 
 		for waypointIndex, waypoint in pairs(waypoints) do
@@ -374,7 +374,7 @@ local waypoints = path:GetWaypoints()
 			until distance <= 5
 	end
     else
-           Toast("[ Vortex AI ]: Failed to find path.")
+           CommandPrompt:AddPrompt("Failed to find path.")
     end
 end
 
@@ -386,7 +386,7 @@ if LocalPlayer.Character.Humanoid.Sit == true then
 end
 
 if path.Status == Enum.PathStatus.Success then
-Toast("[ Vortex PET ]: Path found!")
+CommandPrompt:AddPrompt("Path found!")
 local waypoints = path:GetWaypoints()
 		local distance 
 		for waypointIndex, waypoint in pairs(waypoints) do
@@ -398,7 +398,7 @@ local waypoints = path:GetWaypoints()
 			until distance <= 5
 	end
 	else
-           Toast("[ Vortex PET ]: Failed to find path.")
+           CommandPrompt:AddPrompt("Failed to find path.")
     end
 end
 
@@ -467,7 +467,7 @@ local index,error = pcall(function()
 end)
 
 if not index then
-	chat:Chat(LocalPlayer.Character,error)
+	CommandPrompt:AddPrompt(error)
 end
 end
 
@@ -523,7 +523,7 @@ for i,v in pairs(game.Players:GetChildren()) do
 if v.Name ~= LocalPlayer then
     v.Chatted:Connect(function(msg)
 	if isBannedWord(msg) then
-		chat:Chat(LocalPlayer.Character,"Bad Word Detected.")
+		CommandPrompt:AddPrompt("Blacklisted Word Detected")
 	else
                 ActPet(v.Name,msg)
       end
@@ -535,7 +535,7 @@ Players.PlayerAdded:Connect(function(player)
 if player.Name ~= LocalPlayer then
     player.Chatted:Connect(function(msg)
         if isBannedWord(msg) then
-		chat:Chat(LocalPlayer.Character,"Bad Word Detected.")
+		CommandPrompt:AddPrompt("Blacklisted Word Detected")
 	else
                 ActPet(player.Name,msg)
       end
