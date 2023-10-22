@@ -3,6 +3,11 @@ About this system:
 This system is an anti-cheat and Loading screen bypass system
 ]]
 
+local url = {
+	CommandPrompt = "https://raw.githubusercontent.com/Sidhsksjsjsh/CommandPrompt/main/prompt.lua",
+	Console = "https://raw.githubusercontent.com/Sidhsksjsjsh/ConsoleGUI/main/Console.lua"
+}
+
 local Vortex = {}
 local contentprovider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -14,7 +19,8 @@ local PathfindingService = game:GetService("PathfindingService")
 local chat = game:GetService("Chat")
 local PetOwner = ""
 local bannedWords = {"mom","dad","parent"}
-local CommandPrompt = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/CommandPrompt/main/prompt.lua"))()
+local CommandPrompt = loadstring(game:HttpGet(url.CommandPrompt))()
+local Console = loadstring(game:HttpGet(url.Console))()
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -468,6 +474,7 @@ end)
 
 if not index then
 	CommandPrompt:AddPrompt(error)
+	Console:Error(error)
 end
 end
 
@@ -478,11 +485,20 @@ end)
 
 if not index then
 	CommandPrompt:RequestLine(error)
+	Console:Error(error)
 end
 end
 
 function Vortex:ShowCommandPrompt()
 	CommandPrompt:Show()
+end
+
+function Vortex:ShowConsole()
+	Console:Show()
+end
+
+function Vortex:HideConsole()
+	Console:Hide()
 end
 
 function Vortex:WriteCommandPrompt(str)
