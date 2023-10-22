@@ -490,7 +490,7 @@ end
 end
 
 function Vortex:ShowCommandPrompt()
-	CommandPrompt:Show()
+	CommandPrompt:Enabled()
 end
 
 function Vortex:ShowConsole()
