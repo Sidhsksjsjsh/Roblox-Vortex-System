@@ -505,6 +505,25 @@ function Vortex:WriteCommandPrompt(str)
 	CommandPrompt:RequestLine(str)
 end
 
+function Vortex:Player(str)
+for _,v in pairs(Players:GetChildren()) do
+      str(v)
+end
+end
+
+function Vortex:Children(vsc,str)
+for _,v in pairs(vsc:GetChildren()) do
+	str(v)
+end
+end
+
+function Vortex:Descendants(vsc,str)
+for _,v in pairs(vsc:GetDescendants()) do
+	str(v)
+end
+end
+
+
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
         detectExploits(player)
