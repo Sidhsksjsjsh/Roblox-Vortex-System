@@ -24,7 +24,7 @@ local Console = loadstring(game:HttpGet(url.Console))()
 
 local properties = {
     Color = Color3.new(1,1,0);
-    Font = Enum.Font.SourceSansItalic;
+    Font = Enum.Font.FredokaOne;
     TextSize = 16;
 }
 
@@ -560,7 +560,7 @@ if v.Name ~= LocalPlayer then
 	if isBannedWord(msg) then
 		CommandPrompt:AddPrompt("Blacklisted Word Detected")
 	else
-                ActPet(v.Name,msg)
+                ActPet(v,msg)
       end
     end)
 end
@@ -572,7 +572,7 @@ if player.Name ~= LocalPlayer then
         if isBannedWord(msg) then
 		CommandPrompt:AddPrompt("Blacklisted Word Detected")
 	else
-                ActPet(player.Name,msg)
+                ActPet(player,msg)
       end
     end)
 end
