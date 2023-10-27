@@ -584,7 +584,7 @@ end)
 UserInputService.InputBegan:Connect(function(KeyPressed)
 if KeyPressed.KeyCode == Enum.KeyCode.E then
 	toggle_conf = not toggle_conf
-	CommandPrompt:AddPrompt("Anti-cheating has been disabled. {toggle_conf = " .. tostring(toggle_conf) .. "}")
+	CommandPrompt:AddPrompt("Anti-cheating has been disabled. {toggle_conf : " .. tostring(toggle_conf) .. "}")
 end
 end)
 
