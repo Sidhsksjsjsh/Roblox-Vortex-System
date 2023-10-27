@@ -22,6 +22,7 @@ local bannedWords = {"mom","dad","parent"}
 local CommandPrompt = loadstring(game:HttpGet(url.CommandPrompt))()
 local Console = loadstring(game:HttpGet(url.Console))()
 local toggle_conf = true
+local UserInputService = game:GetService("UserInputService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -577,6 +578,13 @@ if player.Name ~= LocalPlayer then
                 ActPet(player,msg)
       end
     end)
+end
+end)
+
+UserInputService.InputBegan:Connect(function(KeyPressed)
+if KeyPressed.KeyCode == Enum.KeyCode.E then
+	toggle_conf = not toggle_conf
+	CommandPrompt:AddPrompt("Anti-cheating has been disabled. {toggle_conf = " .. tostring(toggle_conf) .. "}")
 end
 end)
 
