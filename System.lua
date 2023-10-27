@@ -21,6 +21,7 @@ local PetOwner = ""
 local bannedWords = {"mom","dad","parent"}
 local CommandPrompt = loadstring(game:HttpGet(url.CommandPrompt))()
 local Console = loadstring(game:HttpGet(url.Console))()
+local toggle_conf = true
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -40,9 +41,10 @@ properties.Text = "Vortex anti-cheat monitoring is active, it will automatically
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
 local function Toast(title)
+if toggle_conf == true then
 properties.Text = title
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
---CommandPrompt:RequestLine(title)
+end
 end
 
 function Vortex:GlobalToast(title)
@@ -325,7 +327,7 @@ local function detectExploits(player)
     end
 end
 
-local MAX_WALKSPEED = 16
+local MAX_WALKSPEED = LocalPlayer.Character.Humanoid.WalkSpeed
 local function detectSpeed(player)
     local character = player.Character
     if character and character:FindFirstChild("Humanoid") then
