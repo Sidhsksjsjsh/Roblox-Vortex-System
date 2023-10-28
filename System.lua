@@ -537,6 +537,12 @@ function Vortex:ScriptLoaded()
     CommandPrompt:AddPrompt("Script loaded in " .. string.format("%.5f", tick() - _L.timestamp) .. " seconds.")
 end
 
+function Vortex:DoneLoading(func)
+if game:IsLoaded() then
+    func()
+end
+end
+
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
         detectExploits(player)
