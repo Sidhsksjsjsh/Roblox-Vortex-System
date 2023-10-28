@@ -530,6 +530,12 @@ for _,v in pairs(vsc:GetDescendants()) do
 end
 end
 
+local _L = {}
+_L.timestamp = tick()
+
+function Vortex:ScriptLoaded()
+    CommandPrompt:AddPrompt("Script loaded in " .. string.format("%.5f", tick() - _L.timestamp) .. " seconds.")
+end
 
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
@@ -588,7 +594,7 @@ end)
 UserInputService.InputBegan:Connect(function(KeyPressed)
 if KeyPressed.KeyCode == Enum.KeyCode.E then
 	toggle_conf = not toggle_conf
-	CommandPrompt:AddPrompt("Anti-cheating has been disabled. {toggle_conf : " .. tostring(toggle_conf) .. "}")
+	CommandPrompt:AddPrompt("Anti-cheat has been disabled. {toggle_conf:" .. tostring(toggle_conf) .. "}")
 end
 end)
 
