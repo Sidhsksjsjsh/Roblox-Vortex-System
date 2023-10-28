@@ -543,6 +543,28 @@ if game:IsLoaded() then
 end
 end
 
+function Vortex:GetRobloxPromptGUI(conf)
+game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(i)
+	conf(i)
+end)
+end
+
+function Vortex:GetHumanoidPropertyChanged(property,str)
+LocalPlayer.Character.Humanoid:GetPropertyChangedSignal(property):Connect(function()
+	str()
+end)
+end
+
+function Vortex:GetCustomPropertyChanged(str,property,func)
+str:GetPropertyChangedSignal(property):Connect(function()
+	func()
+end)
+end
+
+--function Vortex:GetCustomAttributeChanged(str,attribute,func)
+--	k
+--end
+
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
         detectExploits(player)
