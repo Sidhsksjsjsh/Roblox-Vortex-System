@@ -473,7 +473,6 @@ end
 function Vortex:CheckError(str)
 local index,error = pcall(function()
 	str()
-	CommandPrompt:AddPrompt("Script Loaded!")
 end)
 
 if index then
