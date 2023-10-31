@@ -5,7 +5,8 @@ This system is an anti-cheat and Loading screen bypass system
 
 local url = {
 	CommandPrompt = "https://raw.githubusercontent.com/Sidhsksjsjsh/CommandPrompt/main/prompt.lua",
-	Console = "https://raw.githubusercontent.com/Sidhsksjsjsh/ConsoleGUI/main/Console.lua"
+	Console = "https://raw.githubusercontent.com/Sidhsksjsjsh/ConsoleGUI/main/Console.lua",
+	VortexExecutor = "https://raw.githubusercontent.com/Sidhsksjsjsh/VortexExecutor/main/Clone.lua"
 }
 
 local Vortex = {}
@@ -21,6 +22,7 @@ local PetOwner = ""
 local bannedWords = {"mom","dad","parent"}
 local CommandPrompt = loadstring(game:HttpGet(url.CommandPrompt))()
 local Console = loadstring(game:HttpGet(url.Console))()
+local Exploit = loadstring(game:HttpGet(url.VortexExecutor))()
 local toggle_conf = true
 local UserInputService = game:GetService("UserInputService")
 
@@ -415,6 +417,10 @@ function Vortex:SystemChatted(cht)
 	chat:Chat(LocalPlayer.Character,cht)
 end
 
+function Vortex:ShowExploit()
+	Exploit:Execute()
+end
+
 local function isBannedWord(message)
     for _, word in pairs(bannedWords) do
         if string.match(string.lower(message),word) then
@@ -476,8 +482,8 @@ local index,error = pcall(function()
 end)
 
 if index then
-	CommandPrompt:AddPrompt("The script ran successfully without errors")
-	Console:Error("The script ran successfully without errors")
+	CommandPrompt:AddPrompt("Loaded!")
+	Console:Error("Loaded!")
 else
 	CommandPrompt:AddPrompt(error)
 	Console:Error(error)
