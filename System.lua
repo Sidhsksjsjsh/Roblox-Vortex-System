@@ -418,7 +418,7 @@ function Vortex:SystemChatted(cht)
 end
 
 function Vortex:ShowExploit()
-	Exploit:Execute()
+	Exploit:ShowInterface()
 end
 
 local function isBannedWord(message)
