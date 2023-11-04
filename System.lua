@@ -421,6 +421,39 @@ function Vortex:ShowExploit()
 	Exploit:ShowInterface()
 end
 
+--[[
+A: 65 
+B: 66 
+C: 67 
+D: 68 
+E: 69 
+F: 70 
+G: 71 
+H: 72 
+I: 73 
+J: 74 
+K: 75 
+L: 76 
+M: 77 
+N: 78 
+O: 79 
+P: 80 
+Q: 81 
+R: 82 
+S: 83 
+T: 84 
+U: 85 
+V: 86 
+W: 87 
+X: 88 
+Y: 89 
+Z: 90
+]]
+
+function Vortex:Ascii(str)
+	return str:gsub("a"," 65 "):gsub("b"," 66 "):gsub("c"," 67 "):gsub("d"," 68 "):gsub("e"," 69 "):gsub("f"," 70 "):gsub("g"," 71 "):gsub("h"," 72 "):gsub("i"," 73 "):gsub("j"," 74 "):gsub("k"," 75 "):gsub("l"," 76 "):gsub("m"," 77 "):gsub("n"," 78 "):gsub("o"," 79 "):gsub("p"," 80 "):gsub("q"," 81 "):gsub("r"," 82 "):gsub("s"," 83 "):gsub("t"," 84 "):gsub("u"," 85 "):gsub("v"," 86 "):gsub("w"," 87 "):gsub("x"," 88 "):gsub("y"," 89 "):gsub("z"," 90 "):gsub("","")
+end
+
 local function isBannedWord(message)
     for _, word in pairs(bannedWords) do
         if string.match(string.lower(message),word) then
