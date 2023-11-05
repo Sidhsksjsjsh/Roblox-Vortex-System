@@ -25,6 +25,7 @@ local Console = loadstring(game:HttpGet(url.Console))()
 local Exploit = loadstring(game:HttpGet(url.VortexExecutor))()
 local toggle_conf = true
 local UserInputService = game:GetService("UserInputService")
+local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -536,6 +537,12 @@ end
 
 function Vortex:ShowCommandPrompt()
 	CommandPrompt:Enabled()
+end
+
+function Vortex:QueueOnTeleport(str)
+if (queue_on_teleport) then
+	queue_on_teleport('loadstring(game:HttpGet("' .. tostring(str) .. '"))()');
+	end
 end
 
 function Vortex:ShowConsole()
