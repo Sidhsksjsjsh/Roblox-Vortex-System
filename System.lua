@@ -394,6 +394,22 @@ function Vortex:PromptUI(str)
 	CommandPrompt:AddPrompt(str)
 end
 
+function Vortex:AddProximityPrompt(parent,text,dur)
+local Prompt = Instance.new("ProximityPrompt")
+Prompt.Parent = parent
+Prompt.ActionText = text
+Prompt.HoldDuration = dur
+CommandPrompt:AddPrompt("ProximityPrompt Created!")
+CommandPrompt:AddPrompt("Parent: " .. parent)
+end
+
+function Vortex:AddProximityPromptTrigger(promptname,trigger)
+promptname.Triggered:Connect(function()
+    CommandPrompt:AddPrompt("ProximityPrompt Triggered!")
+    trigger()
+end)
+end
+
 local function PathFinding(targetPosition)
 path:ComputeAsync(LocalPlayer.Character.HumanoidRootPart.Position,targetPosition)
 
