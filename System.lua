@@ -351,10 +351,10 @@ local function checkDeathByDamage(character)
 
     humanoid.Died:Connect(function()
         if damaged == true then
-            Toast("[ Vortex Detector ]: " .. tostring(character.Parent.Name) .. " Dies from damage.")
+            Toast("[ Vortex Detector ]: " .. tostring(character.Name) .. " Dies from damage.")
             damaged = false
 	else
-	    Toast("[ Vortex Detector ]: " .. tostring(character.Parent.Name) .. " Died due to resetting the character.")
+	    Toast("[ Vortex Detector ]: " .. tostring(character.Name) .. " Died due to resetting the character.")
         end
     end)
 end
@@ -388,6 +388,10 @@ local waypoints = path:GetWaypoints()
     else
            CommandPrompt:AddPrompt("Failed to find path.")
     end
+end
+
+function Vortex:PromptUI(str)
+	CommandPrompt:AddPrompt(str)
 end
 
 local function PathFinding(targetPosition)
