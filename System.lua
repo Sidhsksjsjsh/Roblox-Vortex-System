@@ -272,6 +272,79 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
 
+--[[function Vortex:MakePlatform(parameters)
+    local thickness = parameters["thickness"] or 0.2
+
+    local floatingPart = Instance.new("Part")
+    floatingPart.Size = Vector3.new(5, 5, thickness)
+    floatingPart.Anchored = true
+    floatingPart.CanCollide = false
+    floatingPart.BrickColor = BrickColor.new("Bright blue")
+    floatingPart.Shape = Enum.PartType.Cylinder
+    floatingPart.Parent = workspace
+
+    local connection
+    connection = humanoid.Died:Connect(function()
+        floatingPart:Remove()
+        connection:Disconnect()
+    end)
+
+    local function FollowPlayer()
+        while wait(0.1) do
+            floatingPart.CFrame = CFrame.new(rootPart.Position + Vector3.new(0, -2, 0))
+        end
+    end
+
+    FollowPlayer()
+end]]
+
+local RunningServices = false
+local thickness = 0.2
+local Anchored = true
+local CanCollide = false
+local Brick = "Bright Blue"
+local position = Vector3.new(0,-2,0)
+
+--[[
+Example: 
+Vortex:MakePlatform({
+       thickness = 0.2,
+       Anchored = true,
+       CanCollide = false,
+       BrickColor = "Bright Blue",
+       Position = Vector3.new(0,-2,0)
+})
+]]
+
+function Vortex:MakePlatform(parameters)
+    thickness = parameters["thickness"] or 0.2
+    Anchored = parameters["Anchored"] or true
+    CanCollide = parameters["CanCollide"] or false
+    Brick = parameters["BrickColor"] or "Bright Blue"
+    position = parameters["Position"] or Vector3.new(0,-2,0)
+
+    local floatingPart = Instance.new("Part")
+    floatingPart.Size = Vector3.new(5, 5, thickness)
+    floatingPart.Anchored = Anchored
+    floatingPart.CanCollide = CanCollide
+    floatingPart.BrickColor = BrickColor.new(Brick)
+    floatingPart.Shape = Enum.PartType.Cylinder
+    floatingPart.Parent = Workspace
+    RunningServices = true
+
+    local connection
+    connection = LocalPlayer.Character.Humanoid.Died:Connect(function()
+        floatingPart:Remove()
+        connection:Disconnect()
+	RunningServices = false
+    end)
+
+    while wait() do
+	if RunningServices == false then break end
+            floatingPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + position)
+    end
+end
+
 --local DEFAULT_GRAVITY = 196.2
 local THRESHOLD = 10
 local function checkGravity(player)
