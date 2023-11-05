@@ -324,13 +324,14 @@ function Vortex:MakePlatform(parameters)
     position = parameters["Position"] or Vector3.new(0,-2,0)
 
     local floatingPart = Instance.new("Part")
-    floatingPart.Size = Vector3.new(5, 5, thickness)
+    floatingPart.Size = Vector3.new(5,5,thickness)
     floatingPart.Anchored = Anchored
     floatingPart.CanCollide = CanCollide
     floatingPart.BrickColor = BrickColor.new(Brick)
     floatingPart.Shape = Enum.PartType.Cylinder
     floatingPart.Parent = Workspace
     RunningServices = true
+    CommandPrompt:AddPrompt("Platform Created!")
 
     local connection
     connection = LocalPlayer.Character.Humanoid.Died:Connect(function()
