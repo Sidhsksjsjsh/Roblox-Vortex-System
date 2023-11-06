@@ -305,6 +305,7 @@ local CanCollide = false
 local Brick = "Bright Blue"
 local position = Vector3.new(0,-2,0)
 local shp = Enum.PartType.Cylinder
+local MeshPart = nil
 --[[
 Example: 
 Vortex:MakePlatform({
@@ -323,6 +324,7 @@ function Vortex:MakePlatform(parameters)
     Brick = parameters["BrickColor"] or "Bright Blue"
     position = parameters["Position"] or Vector3.new(0,-2,0)
     shp = parameters["Shape"] or Enum.PartType.Cylinder
+    MeshPart = parameters["Mesh"] or Instance.new("CylinderMesh")
 
     local floatingPart = Instance.new("Part")
     floatingPart.Size = size
@@ -331,7 +333,8 @@ function Vortex:MakePlatform(parameters)
     floatingPart.BrickColor = BrickColor.new(Brick)
     floatingPart.Shape = shp
     floatingPart.Parent = Workspace
-    local Mesh = Instance.new("CylinderMesh",floatingPart)
+    local Mesh_floatingPart = MeshPart
+	Mesh_floatingPart.Parent = floatingPart
     RunningServices = true
     CommandPrompt:AddPrompt("Platform Created!")
 
