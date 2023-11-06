@@ -299,7 +299,7 @@ local Workspace = game:GetService("Workspace")
 end]]
 
 local RunningServices = false
-local thickness = 0.2
+local size = Vector3.new(5,5,0.2)
 local Anchored = true
 local CanCollide = false
 local Brick = "Bright Blue"
@@ -317,14 +317,14 @@ Vortex:MakePlatform({
 ]]
 
 function Vortex:MakePlatform(parameters)
-    thickness = parameters["thickness"] or 0.2
+    size = parameters["Size"] or Vector3.new(5,5,0.2)
     Anchored = parameters["Anchored"] or true
     CanCollide = parameters["CanCollide"] or false
     Brick = parameters["BrickColor"] or "Bright Blue"
     position = parameters["Position"] or Vector3.new(0,-2,0)
 
     local floatingPart = Instance.new("Part")
-    floatingPart.Size = Vector3.new(5,5,thickness)
+    floatingPart.Size = size
     floatingPart.Anchored = Anchored
     floatingPart.CanCollide = CanCollide
     floatingPart.BrickColor = BrickColor.new(Brick)
