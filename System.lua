@@ -304,7 +304,7 @@ local Anchored = true
 local CanCollide = false
 local Brick = "Bright Blue"
 local position = Vector3.new(0,-2,0)
-
+local shp = Enum.PartType.Cylinder
 --[[
 Example: 
 Vortex:MakePlatform({
@@ -322,20 +322,22 @@ function Vortex:MakePlatform(parameters)
     CanCollide = parameters["CanCollide"] or false
     Brick = parameters["BrickColor"] or "Bright Blue"
     position = parameters["Position"] or Vector3.new(0,-2,0)
+    shp = parameters["Shape"] or Enum.PartType.Cylinder
 
     local floatingPart = Instance.new("Part")
     floatingPart.Size = size
     floatingPart.Anchored = Anchored
     floatingPart.CanCollide = CanCollide
     floatingPart.BrickColor = BrickColor.new(Brick)
-    floatingPart.Shape = Enum.PartType.Cylinder
+    floatingPart.Shape = shp
     floatingPart.Parent = Workspace
+    local Mesh = Instance.new("CylinderMesh",floatingPart)
     RunningServices = true
     CommandPrompt:AddPrompt("Platform Created!")
 
     local connection
     connection = LocalPlayer.Character.Humanoid.Died:Connect(function()
-        floatingPart:Remove()
+        floatingPart:Destroy()
         connection:Disconnect()
 	RunningServices = false
     end)
