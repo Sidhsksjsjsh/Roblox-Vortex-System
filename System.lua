@@ -306,6 +306,8 @@ local Brick = "Bright Blue"
 local position = Vector3.new(0,-2,0)
 local shp = Enum.PartType.Cylinder
 local MeshPart = nil
+local followplayer = false
+
 --[[
 Example: 
 Vortex:MakePlatform({
@@ -325,6 +327,7 @@ function Vortex:MakePlatform(parameters)
     position = parameters["Position"] or Vector3.new(0,-2,0)
     shp = parameters["Shape"] or Enum.PartType.Cylinder
     MeshPart = parameters["Mesh"] or Instance.new("CylinderMesh")
+    followplayer = parameters["Following"] or true
 
     local floatingPart = Instance.new("Part")
     floatingPart.Size = size
@@ -335,18 +338,18 @@ function Vortex:MakePlatform(parameters)
     floatingPart.Parent = Workspace
     local Mesh_floatingPart = MeshPart
 	Mesh_floatingPart.Parent = floatingPart
-    RunningServices = true
     CommandPrompt:AddPrompt("Platform Created!")
 
     local connection
     connection = LocalPlayer.Character.Humanoid.Died:Connect(function()
         floatingPart:Destroy()
         connection:Disconnect()
-	RunningServices = false
+	followplayer = false
+	CommandPrompt:AddPrompt("The character is reset, the part is destroyed and the following toggle is deactivated.")
     end)
 
     while wait() do
-	if RunningServices == false then break end
+	if followplayer == false then break end
             floatingPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + position)
     end
 end
@@ -771,6 +774,9 @@ end
 end)
 
 return Vortex
+
+CommandPrompt:AddPrompt("Vortex is ready to use!")
+CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
 
 --[[Roblox chat translator:
 
