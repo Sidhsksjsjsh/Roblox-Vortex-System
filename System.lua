@@ -272,31 +272,50 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
 
---[[function Vortex:MakePlatform(parameters)
-    local thickness = parameters["thickness"] or 0.2
+local playerGui = Player["PlayerGui"]
+local screenHeight = workspace.CurrentCamera.ViewportSize.Y -- Tinggi layar
+local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
 
-    local floatingPart = Instance.new("Part")
-    floatingPart.Size = Vector3.new(5, 5, thickness)
-    floatingPart.Anchored = true
-    floatingPart.CanCollide = false
-    floatingPart.BrickColor = BrickColor.new("Bright blue")
-    floatingPart.Shape = Enum.PartType.Cylinder
-    floatingPart.Parent = workspace
+--[[
+Vortex:AddLabel("hello",{
+      Position = {0.5,-100,0,workspace.CurrentCamera.ViewportSize.Y - 45},
+      transparen = 1,
+      Size = {0,0,0,0}
+})
+UDim2.new(0.5, -100, 0, 15) - upper
+UDim2.new(0.5, -100, 0, workspace.CurrentCamera.ViewportSize.Y - 45) - under toolbar
+]]
 
-    local connection
-    connection = humanoid.Died:Connect(function()
-        floatingPart:Remove()
-        connection:Disconnect()
-    end)
+function Vortex:GameRequired(id,func)
+if game.PlaceId == id then
+	func()
+else
+	CommandPrompt:AddPrompt("Unsupported Game!")
+end
+end
 
-    local function FollowPlayer()
-        while wait(0.1) do
-            floatingPart.CFrame = CFrame.new(rootPart.Position + Vector3.new(0, -2, 0))
-        end
-    end
+function Vortex:AddLabel(str,array)
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
 
-    FollowPlayer()
-end]]
+-- array["Size"][1]
+	
+local labelTop = Instance.new("TextLabel")
+labelTop.Text = str
+labelTop.Size = UDim2.new(array["Size"][1],array["Size"][2],array["Size"][3],array["Size"][4])
+labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["Position"][3],array["Position"][4])
+labelTop.BackgroundColor3 = Color3.new(0, 0, 0)
+labelTop.BackgroundTransparency = array["transparen"]
+labelTop.Parent = screenGui
+--[[
+local labelBottom = Instance.new("TextLabel")
+labelBottom.Text = "shit"
+labelBottom.Size = UDim2.new(0, 200, 0, 30)
+labelBottom.Position = UDim2.new(0.5, -100, 0, screenHeight - 45)
+labelBottom.BackgroundColor3 = Color3.new(0, 0, 0)
+labelBottom.BackgroundTransparency = 0.5
+labelBottom.Parent = screenGui]]
+end
 
 local RunningServices = false
 local size = Vector3.new(5,5,0.2)
