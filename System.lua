@@ -773,10 +773,10 @@ if KeyPressed.KeyCode == Enum.KeyCode.E then
 end
 end)
 
-return Vortex
-
 CommandPrompt:AddPrompt("Vortex is ready to use!")
 CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
+
+return Vortex
 
 --[[Roblox chat translator:
 
