@@ -272,7 +272,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
 
-local playerGui = Player["PlayerGui"]
+local playerGui = LocalPlayer["PlayerGui"]
 local screenHeight = workspace.CurrentCamera.ViewportSize.Y -- Tinggi layar
 local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
 
