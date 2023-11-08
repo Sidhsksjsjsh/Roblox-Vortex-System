@@ -311,15 +311,8 @@ labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["P
 labelTop.BackgroundColor3 = Color3.new(0, 0, 0)
 labelTop.BackgroundTransparency = array["transparen"]
 labelTop.TextSize = array["TextSize"]
+labelTop.TextColor3 = Color3.new(array["TextColor"][1],array["TextColor"][2],array["TextColor"][3])
 labelTop.Parent = screenGui
---[[
-local labelBottom = Instance.new("TextLabel")
-labelBottom.Text = "shit"
-labelBottom.Size = UDim2.new(0, 200, 0, 30)
-labelBottom.Position = UDim2.new(0.5, -100, 0, screenHeight - 45)
-labelBottom.BackgroundColor3 = Color3.new(0, 0, 0)
-labelBottom.BackgroundTransparency = 0.5
-labelBottom.Parent = screenGui]]
 end
 
 local RunningServices = false
