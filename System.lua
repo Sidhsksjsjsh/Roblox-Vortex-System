@@ -320,7 +320,7 @@ labelTop.TextColor3 = Color3.new(array["TextColor"][1],array["TextColor"][2],arr
 labelTop.Parent = screenGui
 
 task.spawn(function()
-while array["RGB"] == true and array["TextColor"][1] == 0 and array["TextColor"][2] == 0 and array["TextColor"][3] == 0 then
+while array["RGB"] == true and array["TextColor"][1] == 0 and array["TextColor"][2] == 0 and array["TextColor"][3] == 0 do
 if not playerGui:FindFirstChild("Vortex Label") then break end
 labelTop.TextColor3 = Color3.new(math.floor(((math.sin(Workspace.DistributedGameTime/2)/2)+0.5)*255),math.floor(((math.sin(Workspace.DistributedGameTime)/2)+0.5)*255),math.floor(((math.sin(Workspace.DistributedGameTime*1.5)/2)+0.5)*255))
 end
