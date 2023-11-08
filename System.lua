@@ -667,7 +667,11 @@ end
 
 function Vortex:QueueOnTeleport(str)
 if (queue_on_teleport) then
-	queue_on_teleport('loadstring(game:HttpGet("' .. tostring(str) .. '"))()');
+	if type(str) == "function" then
+             queue_on_teleport('loadstring("' .. tostring(str) .. '")()');
+	else
+	     queue_on_teleport('loadstring(game:HttpGet("' .. tostring(str) .. '"))()');
+	end
     end
 end
 
