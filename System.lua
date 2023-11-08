@@ -665,13 +665,24 @@ function Vortex:ShowCommandPrompt()
 	CommandPrompt:Enabled()
 end
 
-function Vortex:QueueOnTeleport(str)
+--[[function Vortex:QueueOnTeleport(str)
 if (queue_on_teleport) then
 	if type(str) == "function" then
              queue_on_teleport('loadstring("' .. tostring(str) .. '")()');
 	else
 	     queue_on_teleport('loadstring(game:HttpGet("' .. tostring(str) .. '"))()');
 	end
+    end
+end]]
+
+function Vortex:QueueOnTeleport(str)
+    if (queue_on_teleport) then
+        local strResult = str()
+        if type(strResult) == "function" then
+            queue_on_teleport('loadstring("' .. strResult .. '")()');
+        else
+            queue_on_teleport('loadstring(game:HttpGet("' .. tostring(strResult) .. '"))()');
+        end
     end
 end
 
