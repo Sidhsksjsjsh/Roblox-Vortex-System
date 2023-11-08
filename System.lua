@@ -306,7 +306,8 @@ end
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = playerGui
 screenGui.Name = "Vortex Label"
-	
+screenGui.ResetOnSpawn = false
+
 -- array["Size"][1]
 	
 local labelTop = Instance.new("TextLabel")
@@ -393,7 +394,7 @@ local function handleSwimming(char)
     if humanoid then
         humanoid.StateChanged:Connect(function(_,newState)
             if newState == Enum.HumanoidStateType.Swimming then
-                Toast("[ Vortex Detector ]: " .. tostring(char.Parent.Name) .. " Swimming!")
+                Toast("[ Vortex Detector ]: " .. tostring(char.Name) .. " Swimming!")
             end
         end)
     end
@@ -622,6 +623,7 @@ end
 
 function Vortex:SetOwner(own)
 	PetOwner = own
+	CommandPrompt:AddPrompt("Your Owner: " .. own)
 end
 
 function Vortex:PetEnabled()
@@ -666,7 +668,7 @@ end
 function Vortex:QueueOnTeleport(str)
 if (queue_on_teleport) then
 	queue_on_teleport('loadstring(game:HttpGet("' .. tostring(str) .. '"))()');
-	end
+    end
 end
 
 function Vortex:ShowConsole()
