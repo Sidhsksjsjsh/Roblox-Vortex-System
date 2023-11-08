@@ -294,6 +294,10 @@ else
 end
 end
 
+function Vortex:FormattedString(str,array)
+	return string.format(str,array)
+end
+
 function Vortex:AddLabel(str,array)
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = playerGui
@@ -306,6 +310,7 @@ labelTop.Size = UDim2.new(array["Size"][1],array["Size"][2],array["Size"][3],arr
 labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["Position"][3],array["Position"][4])
 labelTop.BackgroundColor3 = Color3.new(0, 0, 0)
 labelTop.BackgroundTransparency = array["transparen"]
+labelTop.TextSize = array["TextSize"]
 labelTop.Parent = screenGui
 --[[
 local labelBottom = Instance.new("TextLabel")
