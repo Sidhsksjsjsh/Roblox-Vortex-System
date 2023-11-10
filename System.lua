@@ -276,6 +276,10 @@ local playerGui = LocalPlayer.PlayerGui
 local screenHeight = workspace.CurrentCamera.ViewportSize.Y -- Tinggi layar
 local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
 
+function Vortex:PlayerImmortal()
+	LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid"):ChangeState(11)
+end
+
 --[[
 Vortex:AddLabel("hello",{
       Position = {0.5,-100,0,workspace.CurrentCamera.ViewportSize.Y - 45},
