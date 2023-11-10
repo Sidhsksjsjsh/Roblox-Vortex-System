@@ -1,4 +1,4 @@
---[[ ah
+--[[ FUCK ERROR
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -650,7 +650,7 @@ if index then
 	Console:Error("Loaded!")
 else
 	CommandPrompt:AddPrompt(error)
-	setclipboard(error)
+	setclipboard("Vortex Client Debugging Error: " .. error)
 end
 end
 
