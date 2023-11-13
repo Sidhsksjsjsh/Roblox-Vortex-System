@@ -1,5 +1,5 @@
 --[[ FUCK ERROR
-About this system: 
+About this system: v
 This system is an anti-cheat and Loading screen bypass system
 ]]
 
@@ -303,6 +303,8 @@ function Vortex:FormattedString(str,array)
 end
 
 function Vortex:AddLabel(str,array)
+local LabelChanged = {}
+
 if playerGui:FindFirstChild("Vortex Label") then
 	playerGui:FindFirstChild("Vortex Label"):Destroy()
 end
@@ -323,6 +325,12 @@ labelTop.BackgroundTransparency = array["transparen"]
 labelTop.TextSize = array["TextSize"]
 labelTop.TextColor3 = Color3.new(array["TextColor"][1],array["TextColor"][2],array["TextColor"][3])
 labelTop.Parent = screenGui
+
+function LabelChanged:ChangeLabel(text)
+	labelTop.Text = text
+end
+
+	return LabelChanged
 end
 
 local RunningServices = false
