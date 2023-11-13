@@ -248,11 +248,11 @@ CommandPrompt:AddCommand("> bypass-adonis",function()
 	FuckAdonisV3()
 end)
 
-function Vortex:Write(v,a)
+function Vortex:FileWriter(v,a)
 writefile(v,a)
 end
 
-function Vortex:Read(v)
+function Vortex:FileReader(v)
    return readfile(v)
 end
 
