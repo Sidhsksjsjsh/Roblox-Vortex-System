@@ -854,6 +854,7 @@ end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
 CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
+CommandPrompt:AddPrompt("Failed to send player's personal information to the web")
 
 return Vortex
 
