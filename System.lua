@@ -126,6 +126,10 @@ function Vortex:getType(str)
 	return type(str)
 end
 
+function Vortex:SendMessage(str)
+	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(str,"All")
+end
+
 local function FuckAdonisV1()
 for k,v in pairs(getgc(true)) do
    if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and  (rawget(v,"indexInstance"))[1] == "kick" then
