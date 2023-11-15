@@ -114,6 +114,14 @@ function Vortex:AddCFrame(array)
 	return CFrame.new(array[1],array[2],array[3])
 end
 
+function Vortex:string_upper(str)
+	return str:upper()
+end
+
+function Vortex:string_lower(str)
+	return str:lower()
+end
+
 local function FuckAdonisV1()
 for k,v in pairs(getgc(true)) do
    if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and  (rawget(v,"indexInstance"))[1] == "kick" then
