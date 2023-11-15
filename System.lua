@@ -100,6 +100,20 @@ function Vortex:GUID(ignorelist,GUIDtoggle)
      end
 end
 
+function Vortex:AddVector(array)
+	if #array == 3 then
+		return Vector3.new(array[1],array[2],array[3])
+	elseif #array == 2 then
+		return Vector2.new(array[1],array[2])
+	else
+		CommandPrompt:AddPrompt("Invalid Vector Type.")
+	end
+end
+
+function Vortex:AddCFrame(array)
+	return CFrame.new(array[1],array[2],array[3])
+end
+
 local function FuckAdonisV1()
 for k,v in pairs(getgc(true)) do
    if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and  (rawget(v,"indexInstance"))[1] == "kick" then
@@ -280,15 +294,13 @@ function Vortex:PlayerImmortal()
 	LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid"):ChangeState(11)
 end
 
---[[
-Vortex:AddLabel("hello",{
-      Position = {0.5,-100,0,workspace.CurrentCamera.ViewportSize.Y - 45},
-      transparen = 1,
-      Size = {0,0,0,0}
-})
-UDim2.new(0.5, -100, 0, 15) - upper
-UDim2.new(0.5, -100, 0, workspace.CurrentCamera.ViewportSize.Y - 45) - under toolbar
-]]
+function Vortex:OnlyDeveloper(func)
+	if LocalPlayer.Name == "Rivanda_Cheater" then
+		func()
+	else
+		CommandPrompt:AddPrompt("Only Developer can access this feature/command.")
+	end
+end
 
 function Vortex:GameRequired(id,func)
 if game.PlaceId == id then
