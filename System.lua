@@ -26,6 +26,9 @@ local Exploit = loadstring(game:HttpGet(url.VortexExecutor))()
 local toggle_conf = true
 local UserInputService = game:GetService("UserInputService")
 local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
+local Players = game.Players
+local LocalPlayer = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -98,6 +101,33 @@ function Vortex:GUID(ignorelist,GUIDtoggle)
      else
           return GUID
      end
+end
+
+function Vortex:AddHint()
+local scrpt = {}
+local Hint = Instance.new("Hint",Workspace)
+
+function scrpt:HintText(str)
+	Hint.Text = str
+end
+
+function scrpt:Delete()
+	Hint:Destroy()
+end
+
+	return scrpt
+end
+
+function Vortex:BreakInstance(str)
+for _,v in pairs(Workspace:GetDescendants()) do
+	if v.Name == str then
+		v:Destroy()
+	end
+end
+end
+
+function Vortex:string_find(lcl,str)
+	return lcl:find(str)
 end
 
 function Vortex:AddVector(array)
@@ -297,10 +327,6 @@ end
 function Vortex:Connection(v)
    return http(v)
 end
-
-local Players = game.Players
-local LocalPlayer = Players.LocalPlayer
-local Workspace = game:GetService("Workspace")
 
 local playerGui = LocalPlayer.PlayerGui
 local screenHeight = workspace.CurrentCamera.ViewportSize.Y -- Tinggi layar
