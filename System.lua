@@ -32,6 +32,7 @@ local Workspace = game:GetService("Workspace")
 local chr = LocalPlayer.Character
 local hmnd = chr.Humanoid
 local reroot = chr.HumanoidRootPart
+local TweenService = game:GetService("TweenService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -145,6 +146,14 @@ end
 
 function Vortex:AddCFrame(array)
 	return CFrame.new(array[1],array[2],array[3])
+end
+
+function Vortex:Teleport(str)
+	reroot.CFrame = CFrame.new(str.Position)
+end
+
+function Vortex:Tween(str)
+	TweenService:Create(reroot,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = CFrame.new(str.Position)}):Play()
 end
 
 function Vortex:string_upper(str)
@@ -703,12 +712,12 @@ end
 
 function Vortex:PetEnabled()
 	PetCommander = true
-	Toast("[ Vortex PET ]: Pet Enabled! Other players will control you like their pet.")
+	CommandPrompt:AddPrompt("[ Vortex PET ]: Pet Enabled! Other players will control you like their pet.")
 end
 
 function Vortex:PetDisabled()
 	PetCommander = false
-	Toast("[ Vortex PET ]: Pet Disabled!")
+	CommandPrompt:AddPrompt("[ Vortex PET ]: Pet Disabled!")
 end
 
 function Vortex:CheckError(str)
@@ -888,8 +897,8 @@ end
 end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
-CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
-CommandPrompt:AddPrompt("Failed to send player's personal information to the web")
+--CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
+--CommandPrompt:AddPrompt("Failed to send player's personal information to the web")
 
 return Vortex
 
