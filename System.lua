@@ -29,6 +29,9 @@ local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local Players = game.Players
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
+local chr = LocalPlayer.Character
+local hmnd = chr.Humanoid
+local reroot = chr.HumanoidRootPart
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -158,6 +161,12 @@ end
 
 function Vortex:SendMessage(str)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(str,"All")
+end
+
+function Vortex:HumanoidDied(func)
+chr.Humanoid.Died:Connect(function()
+	func()
+end)
 end
 
 local function FuckAdonisV1()
