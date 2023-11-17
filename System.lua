@@ -130,6 +130,10 @@ for _,v in pairs(Workspace:GetDescendants()) do
 end
 end
 
+function Vortex:Service(str)
+	return game:GetService(str)
+end
+
 function Vortex:string_find(lcl,str)
 	return lcl:find(str)
 end
