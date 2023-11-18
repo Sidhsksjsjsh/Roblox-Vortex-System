@@ -134,6 +134,14 @@ function Vortex:Service(str)
 	return game:GetService(str)
 end
 
+function Vortex.date(str)
+	return os.date(str)
+end
+
+function Vortex:RealTime()
+	return os.date("%X")
+end
+
 function Vortex:string_find(lcl,str)
 	return lcl:find(str)
 end
