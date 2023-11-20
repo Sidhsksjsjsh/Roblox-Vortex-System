@@ -129,7 +129,7 @@ function Vortex:NearestPart(workspacePath,toggle,scriptFunction)
 
 while toggle == true do
 wait()
-   scriptFunction()
+   scriptFunction(nearestPart)
 end
 end
 
@@ -157,7 +157,7 @@ function Vortex:NearestNPC(workspacePath,toggle,scriptFunction)
 
 while toggle == true do
 wait()
-    scriptFunction()
+    scriptFunction(nearestNPC)
 end
 end
 
