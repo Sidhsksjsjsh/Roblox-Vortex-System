@@ -107,6 +107,85 @@ function Vortex:GUID(ignorelist,GUIDtoggle)
      end
 end
 
+function Vortex:NearestPart(workspacePath,toggle,scriptFunction)
+    local FindPart = Workspace:FindFirstChild(workspacePath)
+    if not FindPart then
+        CommandPrompt:AddPrompt("Workspace or Part not found.")
+        return
+    end
+
+    local minDistance = math.huge
+    local nearestPart = nil
+
+    for _, part in pairs(workspace:GetChildren()) do
+        local partPosition = part.Position
+        local distance = minDistance
+
+        if distance < minDistance then
+            minDistance = distance
+            nearestPart = part
+        end
+    end
+
+while toggle == true do
+wait()
+   scriptFunction()
+end
+end
+
+function Vortex:NearestNPC(workspacePath,toggle,scriptFunction)
+    local FindNPC = Workspace:FindFirstChild(workspacePath)
+    if not FindNPC then
+        CommandPrompt:AddPrompt("Workspace or NPC not found.")
+        return
+    end
+
+    local minDistance = math.huge
+    local nearestNPC = nil
+
+    for _, npc in pairs(workspace:GetChildren()) do
+        local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
+        if npcPosition then
+            local distance = minDistance
+
+            if distance < minDistance then
+                minDistance = distance
+                nearestNPC = npc
+            end
+        end
+    end
+
+while toggle == true do
+wait()
+    scriptFunction()
+end
+end
+
+function Vortex:NearestPlayer(toggle,scriptFunction)
+    local otherPlayers = Players:GetPlayers()
+
+    local minDistance = math.huge
+    local nearestPlayer = nil
+
+    for _, otherPlayer in pairs(otherPlayers) do
+        local otherPlayerPosition = otherPlayer.Character and otherPlayer.Character:FindFirstChild("HumanoidRootPart") and otherPlayer.Character.HumanoidRootPart.Position
+
+        if otherPlayerPosition then
+            local distance = minDistance
+
+            if distance < minDistance then
+                minDistance = distance
+                nearestPlayer = otherPlayer
+            end
+        end
+    end
+
+while toggle == true do
+wait()
+   scriptFunction(nearestPlayer)
+end
+end
+
 function Vortex:AddHint()
 local scrpt = {}
 local Hint = Instance.new("Hint",Workspace)
