@@ -1,4 +1,4 @@
---[[ FUCK ERROR
+--[[ :/
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -264,7 +264,7 @@ function Vortex:SendMessage(str)
 end
 
 function Vortex:HumanoidDied(func)
-chr.Humanoid.Died:Connect(function()
+LocalPlayer.Character.Humanoid.Died:Connect(function()
 	func()
 end)
 end
