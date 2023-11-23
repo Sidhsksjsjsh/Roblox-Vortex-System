@@ -64,6 +64,21 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 --CommandPrompt:RequestLine(title)
 end
 
+function Vortex:Repeater(func)
+local rptr = {}
+local this = RunService.RenderStepped:Connect(function()
+	func()
+end)
+
+function rptr:BreakRepeater()
+	if this then
+	    this:Disconnect()
+	end
+end
+
+    return rptr
+end
+
 function Vortex:BypassLoadingScreen()
 local mt = getrawmetatable(game)
 local oldnc = mt.__namecall
