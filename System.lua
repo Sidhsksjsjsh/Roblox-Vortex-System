@@ -1,4 +1,4 @@
---[[ :/--
+--[[ :/---
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -593,7 +593,7 @@ function Vortex:MakePlatform(parameters)
     end
 end
 
---local DEFAULT_GRAVITY = 196.2
+--[[local DEFAULT_GRAVITY = 196.2
 local THRESHOLD = 10
 local function checkGravity(player)
     local char = player.Character
@@ -679,7 +679,7 @@ local function checkDeathByDamage(character)
         end
     end)
 end
---[[
+
 local path = PathfindingService:CreatePath({
     AgentRadius = 2,
     AgentHeight = 5,
