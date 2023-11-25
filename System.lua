@@ -1,4 +1,4 @@
---[[ :/-
+--[[ :/--
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -968,23 +968,23 @@ end
 
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= LocalPlayer then
-        detectExploits(player)
-	detectSpeed(player)
+        --detectExploits(player)
+	--detectSpeed(player)
 	--checkDeathByDamage(player.Character)
-	checkSitting(player)
+	--checkSitting(player)
 	--checkGravity(player)
-	handleSwimming(player.Character)
+	--handleSwimming(player.Character)
     end
 end
 
 Players.PlayerAdded:Connect(function(player)
     if player ~= LocalPlayer then
-        detectExploits(player)
-	detectSpeed(player)
+        --detectExploits(player)
+	--detectSpeed(player)
 	--checkDeathByDamage(player.Character)
-	checkSitting(player)
+	--checkSitting(player)
 	--checkGravity(player)
-	handleSwimming(player.Character)
+	--handleSwimming(player.Character)
     end
 end)
 
