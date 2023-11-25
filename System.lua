@@ -64,6 +64,23 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 --CommandPrompt:RequestLine(title)
 end
 
+local uid = LocalPlayer.UserId
+local usrnm = LocalPlayer.Name
+
+function Vortex:ProtectUsername()
+LocalPlayer:GetPropertyChangedSignal("Name"):Connect(function()
+	CommandPrompt:AddPrompt("Username Changed Detected! Restore to the original username..")
+	LocalPlayer.Name = usrnm
+end)
+end
+
+function Vortex:ProtectUID()
+LocalPlayer:GetPropertyChangedSignal("UserId"):Connect(function()
+	CommandPrompt:AddPrompt("UserId Changed Detected! Restore to the original UserId..")
+	LocalPlayer.UserId = uid
+end)
+end
+
 function Vortex:Repeater(func)
 local rptr = {}
 local this = RunService.RenderStepped:Connect(function()
@@ -461,10 +478,19 @@ function Vortex:PlayerImmortal()
 end
 
 function Vortex:OnlyDeveloper(func)
-	if LocalPlayer.Name == "Rivanda_Cheater" then
+	if LocalPlayer.Name == "Rivanda_Cheater" and LocalPlayer.UserId == 3621188307 then
+		CommandPrompt:AddPrompt("Username and UserId are Valid! Loading script..")
+		func()
+	elseif LocalPlayer.Name ~= "Rivanda_Cheater" and LocalPlayer.UserId == 3621188307 then
+		CommandPrompt:AddPrompt("Valid UserId! Loading script..")
+		func()
+	elseif LocalPlayer == "Rivanda_Cheater" and LocalPlayer.UserId ~= 3621188307 then
+		CommandPrompt:AddPrompt("Valid Username! Loading script..")
 		func()
 	else
 		CommandPrompt:AddPrompt("Only Developer can access this feature/command.")
+		wait(1)
+		CommandPrompt:AddPrompt("Bros trying to bypass developer feature 💀☠️")
 	end
 end
 
