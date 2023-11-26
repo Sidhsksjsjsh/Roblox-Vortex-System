@@ -1,4 +1,4 @@
---[[ :/---
+--[[ :/----
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -445,7 +445,7 @@ function Vortex:AdonisBypass(versionbypass)
      end
 end
 
-CommandPrompt:AddCommand("> bypass-adonis",function()
+CommandPrompt:addcmds("> bypass-adonis",function()
 	FuckAdonisV3()
 end)
 
