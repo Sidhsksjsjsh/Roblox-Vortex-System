@@ -1,4 +1,4 @@
---[[ :/----
+--[[ :/---- Yes
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
@@ -465,8 +465,24 @@ function Vortex:Run(v)
 loadstring(v)()
 end
 
-function Vortex:Connection(v)
-   return http(v)
+function Vortex:Connection(str,loadstr)
+   if loadstr == true then
+	if str == "Sound.js" then
+		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua"))()
+	elseif str = "" then
+		return nil
+	else
+		return "Connection Not Found"
+	end
+else
+	if str == "Sound.js" then
+		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua")
+	elseif str = "" then
+		return nil
+	else
+		return "Connection Not Found"
+	end
+	end
 end
 
 local playerGui = LocalPlayer.PlayerGui
