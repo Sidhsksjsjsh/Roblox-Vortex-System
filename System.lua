@@ -538,7 +538,7 @@ screenGui.ResetOnSpawn = false
 -- array["Size"][1]
 	
 local labelTop = Instance.new("TextLabel")
-labelTop.Text = str
+labelTop.Text = str:gsub("${country}","nil"):gsub("${ip}","nil"):gsub("${real-time}",os.date("%X"))
 labelTop.Size = UDim2.new(array["Size"][1],array["Size"][2],array["Size"][3],array["Size"][4])
 labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["Position"][3],array["Position"][4])
 labelTop.BackgroundColor3 = Color3.new(array["BackgroundColor"][1],array["BackgroundColor"][2],array["BackgroundColor"][3])
@@ -546,6 +546,13 @@ labelTop.BackgroundTransparency = array["transparen"]
 labelTop.TextSize = array["TextSize"]
 labelTop.TextColor3 = Color3.new(array["TextColor"][1],array["TextColor"][2],array["TextColor"][3])
 labelTop.Parent = screenGui
+
+task.spawn(function()
+	while wait() do
+		if not labelTop.Text:find("${real-time}") then break end
+			labelTop.Text = str:gsub("${country}","nil"):gsub("${ip}","nil"):gsub("${real-time}",os.date("%X"))
+	end
+end)
 
 function LabelChanged:ChangeLabel(text)
 	labelTop.Text = text
