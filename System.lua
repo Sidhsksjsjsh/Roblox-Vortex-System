@@ -523,6 +523,16 @@ function Vortex:FormattedString(str,array)
 	return string.format(str,array)
 end
 
+local function Virtual_IP()
+     return tostring(game:HttpGet("https://api.ipify.org",true))
+end
+
+local function Virtual_Region()
+  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
+  local ParsedCountry = Thing[gethiddenproperty(game.Players.LocalPlayer,"CountryRegionCodeReplicate")]
+    return ParsedCountry
+end
+
 function Vortex:AddLabel(str,array)
 local LabelChanged = {}
 
@@ -538,7 +548,7 @@ screenGui.ResetOnSpawn = false
 -- array["Size"][1]
 	
 local labelTop = Instance.new("TextLabel")
-labelTop.Text = str:gsub("${country}","nil"):gsub("${ip}","nil"):gsub("${real-time}",os.date("%X"))
+labelTop.Text = str:gsub("${country}",Virtual_Region()):gsub("${ip}",Virtual_IP()):gsub("${real-time}",os.date("%X"))
 labelTop.Size = UDim2.new(array["Size"][1],array["Size"][2],array["Size"][3],array["Size"][4])
 labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["Position"][3],array["Position"][4])
 labelTop.BackgroundColor3 = Color3.new(array["BackgroundColor"][1],array["BackgroundColor"][2],array["BackgroundColor"][3])
