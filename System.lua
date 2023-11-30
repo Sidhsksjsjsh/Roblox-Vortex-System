@@ -464,27 +464,26 @@ end
 function Vortex:Run(v)
 loadstring(v)()
 end
---[[
+
 function Vortex:Connection(str,loadstr)
    if loadstr == true then
 	if str == "Sound.js" then
 		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua"))()
-	elseif str == "" then
-		return nil
+	elseif str == "Loading-UI.js" then
+		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Loading-UI/main/.lua"))()
 	else
 		return "Connection Not Found"
 	end
 else
 	if str == "Sound.js" then
 		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua")
-	elseif str == "" then
-		return nil
+	elseif str == "Loading-UI.js" then
+		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Loading-UI/main/.lua")
 	else
 		return "Connection Not Found"
 	end
 	end
 end
-]]
 
 local playerGui = LocalPlayer.PlayerGui
 local screenHeight = workspace.CurrentCamera.ViewportSize.Y -- Tinggi layar
