@@ -52,14 +52,14 @@ end
 properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat."
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
-local function Toast(title)
+local function Toast(title) --"<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>"
 local debug,error = pcall(function()
      properties.Text = title
      StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end)
 
 if not debug then
-	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
+	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
 end
 end
 
@@ -70,7 +70,7 @@ local debug,error = pcall(function()
 end)
 
 if not debug then
-	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
+	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
 end
 end
 
