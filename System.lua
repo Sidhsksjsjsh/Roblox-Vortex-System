@@ -33,6 +33,7 @@ local chr = LocalPlayer.Character
 local hmnd = chr.Humanoid
 local reroot = chr.HumanoidRootPart
 local TweenService = game:GetService("TweenService")
+local TextChatService = game:GetService("TextChatService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -291,8 +292,25 @@ function Vortex:getType(str)
 	return type(str)
 end
 
+--[[
+local index,error = pcall(function()
+	str()
+end)
+
+if not index then
+	CommandPrompt:RequestLine(error)
+	Console:Error(error)
+end
+]]
+
 function Vortex:SendMessage(str)
+local success,debug = pcall(function()
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(str,"All")
+end)
+
+if not success then
+	TextChatService["TextChannels"]["RBXGeneral"]:SendAsync(str)
+end
 end
 
 function Vortex:HumanoidDied(func)
