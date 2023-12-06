@@ -53,16 +53,25 @@ properties.Text = "Vortex anti-cheat monitoring is active, it will automatically
 StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
 local function Toast(title)
-if toggle_conf == true then
-properties.Text = title
-StarterGui:SetCore("ChatMakeSystemMessage", properties)
+local debug,error = pcall(function()
+     properties.Text = title
+     StarterGui:SetCore("ChatMakeSystemMessage", properties)
+end)
+
+if not debug then
+	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
 end
 end
 
 function Vortex:GlobalToast(title)
-properties.Text = title
-StarterGui:SetCore("ChatMakeSystemMessage", properties)
---CommandPrompt:RequestLine(title)
+local debug,error = pcall(function()
+     properties.Text = title
+     StarterGui:SetCore("ChatMakeSystemMessage", properties)
+end)
+
+if not debug then
+	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
+end
 end
 
 local uid = LocalPlayer.UserId
