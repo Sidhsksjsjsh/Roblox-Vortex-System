@@ -54,23 +54,23 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
 local function Toast(title) --"<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>"
 local debug,error = pcall(function()
-     properties.Text = title
-     StarterGui:SetCore("ChatMakeSystemMessage", properties)
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
 end)
 
 if not debug then
-	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
+	properties.Text = title
+        StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end
 end
 
 function Vortex:GlobalToast(title)
 local debug,error = pcall(function()
-     properties.Text = title
-     StarterGui:SetCore("ChatMakeSystemMessage", properties)
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
 end)
 
 if not debug then
-	TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
+	properties.Text = title
+        StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end
 end
 
