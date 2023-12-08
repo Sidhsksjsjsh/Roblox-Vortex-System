@@ -74,6 +74,14 @@ if not debug then
 end
 end
 
+function Vortex:ChildAdded(path,func)
+	path.ChildAdded:Connect(func)
+end
+
+function Vortex:DescendantAdded(path,func)
+	path.DescendantAdded:Connect(func)
+end
+
 local uid = LocalPlayer.UserId
 local usrnm = LocalPlayer.Name
 
@@ -574,7 +582,7 @@ screenGui.ResetOnSpawn = false
 -- array["Size"][1]
 	
 local labelTop = Instance.new("TextLabel")
-labelTop.Text = str:gsub("${country}",Virtual_Region()):gsub("${ip}",Virtual_IP()):gsub("${real-time}",os.date("%X"))
+labelTop.Text = str:gsub("${country}",Virtual_Region()):gsub("${ip}",Virtual_IP()):gsub("${date}",tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")))
 labelTop.Size = UDim2.new(array["Size"][1],array["Size"][2],array["Size"][3],array["Size"][4])
 labelTop.Position = UDim2.new(array["Position"][1],array["Position"][2],array["Position"][3],array["Position"][4])
 labelTop.BackgroundColor3 = Color3.new(array["BackgroundColor"][1],array["BackgroundColor"][2],array["BackgroundColor"][3])
@@ -586,7 +594,7 @@ labelTop.Parent = screenGui
 task.spawn(function()
 	while wait() do
 		if not labelTop.Text:find("${real-time}") then break end
-			labelTop.Text = str:gsub("${country}","nil"):gsub("${ip}","nil"):gsub("${real-time}",os.date("%X"))
+			labelTop.Text = str:gsub("${real-time}",os.date("%X"))
 	end
 end)
 
