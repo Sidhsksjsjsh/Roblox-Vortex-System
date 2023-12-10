@@ -85,6 +85,10 @@ end
 local uid = LocalPlayer.UserId
 local usrnm = LocalPlayer.Name
 
+function Vortex:ProductInfo(str)
+	return game:GetService("MarketplaceService"):GetProductInfo(str)
+end
+
 function Vortex:ProtectUsername()
 LocalPlayer:GetPropertyChangedSignal("Name"):Connect(function()
 	CommandPrompt:AddPrompt("Username Changed Detected! Restore to the original username..")
