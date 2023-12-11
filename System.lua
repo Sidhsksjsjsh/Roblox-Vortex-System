@@ -34,6 +34,7 @@ local hmnd = chr.Humanoid
 local reroot = chr.HumanoidRootPart
 local TweenService = game:GetService("TweenService")
 local TextChatService = game:GetService("TextChatService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -86,8 +87,30 @@ local uid = LocalPlayer.UserId
 local usrnm = LocalPlayer.Name
 
 function Vortex:ProductInfo(str)
-	return game:GetService("MarketplaceService"):GetProductInfo(str)
+	return MarketplaceService:GetProductInfo(str)
 end
+
+local function PI(str)
+	return MarketplaceService:GetProductInfo(str)
+end
+
+function Vortex:PromptPurchase(id)
+	MarketplaceService:PromptGamePassPurchase(LocalPlayer,id)
+end
+
+function Vortex:IsOwnPass(id)
+	return MarketplaceService:UserOwnsGamePassAsync(LocalPlayer.UserId,id)
+end
+
+local function onPromptPurchaseFinished(player,purchasedPassID,purchaseSuccess)
+	if purchaseSuccess then
+		CommandPrompt:AddPrompt(tostring(PI(purchasedPassID)) .. " Activated, Enjoy! :)")
+	else
+		CommandPrompt:AddPrompt("Purchase Failed :(")
+	end
+end
+
+MarketplaceService.PromptGamePassPurchaseFinished:Connect(onPromptPurchaseFinished)
 
 function Vortex:ProtectUsername()
 LocalPlayer:GetPropertyChangedSignal("Name"):Connect(function()
