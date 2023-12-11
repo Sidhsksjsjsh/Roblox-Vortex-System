@@ -119,7 +119,7 @@ local function onPromptPurchaseFinished(player,purchasedPassID,purchaseSuccess)
 	end
 end
 
-MarketplaceService.PromptGamePassPurchaseFinished:Connect(onPromptPurchaseFinished)
+--MarketplaceService.PromptGamePassPurchaseFinished:Connect(onPromptPurchaseFinished)
 
 function Vortex:ProtectUsername()
 LocalPlayer:GetPropertyChangedSignal("Name"):Connect(function()
