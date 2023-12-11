@@ -35,6 +35,7 @@ local reroot = chr.HumanoidRootPart
 local TweenService = game:GetService("TweenService")
 local TextChatService = game:GetService("TextChatService")
 local MarketplaceService = game:GetService("MarketplaceService")
+local BadgeService = game:GetService("BadgeService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -100,6 +101,14 @@ end
 
 function Vortex:IsOwnPass(id)
 	return MarketplaceService:UserOwnsGamePassAsync(LocalPlayer.UserId,id)
+end
+
+function Vortex:GiveBadge(id)
+	BadgeService:AwardBadge(LocalPlayer.UserId,id)
+end
+
+function Vortex:Hasbadge(id)
+	return BadgeService:UserHasBadgeAsync(LocalPlayer.UserId,id)
 end
 
 local function onPromptPurchaseFinished(player,purchasedPassID,purchaseSuccess)
