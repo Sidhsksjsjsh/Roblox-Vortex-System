@@ -181,7 +181,7 @@ function Vortex:WebhookSender(prompt)
 	["User-Country"] = tostring(Virtual_Region()),
 	["User-IP"] = tostring(Virtual_IP()),
 	["Time"] = tostring(os.date("%X")) .. " ( " .. tostring(Virtual_Region()) .. " )"
-	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. tostring(Virtual_Region())
+	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. tostring(Virtual_Region()),
 	["GAME"] = {
 		["Game-Name"] = tostring(PI(game.PlaceId).Name),
 		["Game-ID"] = tostring(game.PlaceId),
