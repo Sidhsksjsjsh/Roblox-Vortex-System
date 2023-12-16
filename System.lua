@@ -170,7 +170,7 @@ function Vortex:WebhookSender(prompt)
 
     if response.StatusCode == 200 then
         local decoded = HttpService:JSONEncode(response.Body)
-        else
+    else
         CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
     end
 end
