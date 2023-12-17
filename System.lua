@@ -181,7 +181,7 @@ function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
 	["User-Agent"] = "Vortex Admin | Bug Reported",
-	["host"] = "fahri.site, github.com & roblox.com"
+	["host"] = "fahri.site, github.com & roblox.com",
 	["Vortex-Hook-Version"] = "V3.6.7",
 	["Powered-By"] = "webhook.site & github.com"
     }
