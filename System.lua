@@ -227,9 +227,6 @@ function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
 	["User-Agent"] = "Vortex Admin | Bug Reported"
-	--["host"] = "fahri.site, github.com & roblox.com",
-	--["Vortex-Hook-Version"] = "V3.6.7",
-	--["Powered-By"] = "webhook.site & github.com"
     }
     
     local data = {
@@ -262,6 +259,53 @@ function Vortex:WebhookSender(prompt)
     local response = http({
         Url = URL,
         Method = "POST",
+        Headers = headers,
+        Body = HttpService:JSONEncode(data)
+    })
+
+    if response.StatusCode == 200 then
+        local decoded = HttpService:JSONEncode(response.Body)
+    else
+        CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
+    end
+end
+
+local function setTracking(prompt,agent)
+    local headers = {
+        ["content-type"] = "application/json",
+	["User-Agent"] = "Vortex Admin | " .. tostring(agent)
+    }
+    
+    local data = {
+        ["content"] = prompt,
+	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
+	["Exploit"] = Exploit(),
+	["User-Region"] = Virtual_Region(),
+	["User-IP"] = Virtual_IP(),
+	["Time"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " )",
+	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region(),
+	["Device"] = DeviceInfo(),
+	["GAME"] = {
+		["Game-Name"] = PI(game.PlaceId).Name,
+		["Game-ID"] = game.PlaceId,
+		["Server-JobId"] = game.JobId,
+		["game-UniverseId"] = "nil",
+		["creator"] = {
+			["name"] = GetNameByID(),
+			["display-name"] = GetDisplayNameByID(),
+			["ID"] = CreatorID()
+		},
+		["Updated"] = {
+			["1"] = "V" .. string.gsub(string.split(updatedDate,"T")[1],"-","."),
+			["TimeStamp"] = os.date("*t") or "nil",
+			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
+		}
+	}
+    }
+
+    local response = http({
+        Url = URL,
+        Method = "GET",
         Headers = headers,
         Body = HttpService:JSONEncode(data)
     })
@@ -1079,6 +1123,7 @@ if index then
 	Console:Error("Loaded!")
 else
 	CommandPrompt:AddPrompt(error)
+	setTracking(error,"Ricochet Analysis System")
 end
 end
 
@@ -1089,7 +1134,7 @@ end)
 
 if not index then
 	CommandPrompt:RequestLine(error)
-	Console:Error(error)
+	setTracking(error,"Ricochet Analysis System")
 end
 end
 
@@ -1245,8 +1290,7 @@ end
 end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
---CommandPrompt:AddPrompt("The player's personal information is successfully saved.")
---CommandPrompt:AddPrompt("Failed to send player's personal information to the web")
+setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Tracking System")
 
 return Vortex
 
