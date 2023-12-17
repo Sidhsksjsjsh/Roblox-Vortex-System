@@ -224,10 +224,10 @@ local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
 function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | Bug Reported",
-	["host"] = "fahri.site, github.com & roblox.com",
-	["Vortex-Hook-Version"] = "V3.6.7",
-	["Powered-By"] = "webhook.site & github.com"
+	["User-Agent"] = "Vortex Admin | Bug Reported"
+	--["host"] = "fahri.site, github.com & roblox.com",
+	--["Vortex-Hook-Version"] = "V3.6.7",
+	--["Powered-By"] = "webhook.site & github.com"
     }
     
     local data = {
