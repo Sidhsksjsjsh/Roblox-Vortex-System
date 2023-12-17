@@ -199,7 +199,7 @@ function Vortex:WebhookSender(prompt)
 		["Game-Name"] = PI(game.PlaceId).Name,
 		["Game-ID"] = game.PlaceId,
 		["Server-JobId"] = game.JobId,
-		["game-UniverseId"] = game.UniverseId,
+		["game-UniverseId"] = "nil",
 		["game-creator"] = "nil"
 	}
     }
