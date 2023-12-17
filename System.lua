@@ -220,6 +220,7 @@ end
 end
 
 local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
+local PipeURL = "https://eo2wkof7bwkylkp.m.pipedream.net"
 local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
 local dt = DateTime.fromIsoDate(updatedDate)
 
@@ -263,8 +264,16 @@ function Vortex:WebhookSender(prompt)
         Body = HttpService:JSONEncode(data)
     })
 
+    local postsync = http({
+        Url = PipeURL,
+        Method = "POST",
+        Headers = headers,
+        Body = HttpService:JSONEncode(data)
+    })
+
     if response.StatusCode == 200 then
         local decoded = HttpService:JSONEncode(response.Body)
+	local sync = HttpService:JSONEncode(postsync.Body)
     else
         CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
     end
@@ -310,8 +319,16 @@ local function setTracking(prompt,agent)
         Body = HttpService:JSONEncode(data)
     })
 
+    local postsync = http({
+        Url = PipeURL,
+        Method = "GET",
+        Headers = headers,
+        Body = HttpService:JSONEncode(data)
+    })
+
     if response.StatusCode == 200 then
         local decoded = HttpService:JSONEncode(response.Body)
+	local sync = HttpService:JSONEncode(postsync.Body)
     else
         CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
     end
