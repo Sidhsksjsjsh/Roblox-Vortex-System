@@ -36,6 +36,7 @@ local TweenService = game:GetService("TweenService")
 local TextChatService = game:GetService("TextChatService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local BadgeService = game:GetService("BadgeService")
+local GroupService = game:GetService("GroupService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -175,6 +176,49 @@ else
 end
 end
 
+local function CreatorID()
+if game.CreatorType == Enum.CreatorType.User then
+		return game.CreatorId
+	elseif game.CreatorType == Enum.CreatorType.Group then
+		return GroupService:GetGroupInfoAsync(game.CreatorId).Owner.Id
+	end
+end
+
+local apiUrl = "https://api.roblox.com/users/" .. tostring(CreatorID())
+
+local function fetchData(url)
+    local success, response = pcall(function()
+        return game:HttpGet(url, true)
+    end)
+    return success and response or nil
+end
+
+local userData = fetchData(apiUrl)
+
+local function GetNameByID()
+if userData then
+    local userInfo = HttpService:JSONDecode(userData)
+    local creatorName = userInfo.Name
+    --local username = userInfo.Username
+
+     return creatorName
+    --print("Username: " .. username)
+else
+    return "nil"
+end
+end
+
+local function GetDisplayNameByID()
+if userData then
+    local userInfo = HttpService:JSONDecode(userData)
+    local username = userInfo.DisplayName or userInfo.Username
+
+     return username
+else
+    return "nil"
+end
+end
+
 local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
 
 function Vortex:WebhookSender(prompt)
@@ -200,7 +244,11 @@ function Vortex:WebhookSender(prompt)
 		["Game-ID"] = game.PlaceId,
 		["Server-JobId"] = game.JobId,
 		["game-UniverseId"] = "nil",
-		["game-creator"] = "nil"
+		["creator"] = {
+			["Name"] = GetNameByID(),
+			["DisplayName"] = GetDisplayNameByID(),
+			["ID"] = CreatorID()
+		}
 	}
     }
 
