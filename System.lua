@@ -1290,7 +1290,10 @@ end
 end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
-setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Tracking System")
+
+task.spawn(function()
+	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Tracking System")
+end)
 
 return Vortex
 
