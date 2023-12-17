@@ -253,7 +253,7 @@ function Vortex:WebhookSender(prompt)
 		},
 		["Updated"] = {
 			["1"] = "V" .. string.gsub(string.split(updatedDate,"T")[1],"-","."),
-			["TimeStamp"] = os.date("*t",tonumber(updatedDate)),
+			["TimeStamp"] = os.date("*t") or "nil",
 			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
 		}
 	}
