@@ -245,8 +245,8 @@ function Vortex:WebhookSender(prompt)
 		["Server-JobId"] = game.JobId,
 		["game-UniverseId"] = "nil",
 		["creator"] = {
-			["Name"] = GetNameByID(),
-			["DisplayName"] = GetDisplayNameByID(),
+			["name"] = GetNameByID(),
+			["display-name"] = GetDisplayNameByID(),
 			["ID"] = CreatorID()
 		}
 	}
