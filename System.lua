@@ -167,12 +167,23 @@ if identifyexecutor then
     end
 end
 
+local function DeviceInfo()
+if table.find({Enum.Platform.IOS,Enum.Platform.Android},UserInputService:GetPlatform()) then
+   return "Mobile"
+else
+   return "PC"
+end
+end
+
 local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
 
 function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | Bug Reported"
+	["User-Agent"] = "Vortex Admin | Bug Reported",
+	["host"] = "fahri.site, github.com & roblox.com"
+	["Vortex-Hook-Version"] = "V3.6.7",
+	["Powered-By"] = "webhook.site & github.com"
     }
     
     local data = {
@@ -183,10 +194,13 @@ function Vortex:WebhookSender(prompt)
 	["User-IP"] = Virtual_IP(),
 	["Time"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " )",
 	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region(),
+	["Device"] = DeviceInfo(),
 	["GAME"] = {
 		["Game-Name"] = PI(game.PlaceId).Name,
 		["Game-ID"] = game.PlaceId,
-		["Server-JobId"] = game.JobId
+		["Server-JobId"] = game.JobId,
+		["game-UniverseId"] = game.UniverseId,
+		["game-creator"] = "nil"
 	}
     }
 
