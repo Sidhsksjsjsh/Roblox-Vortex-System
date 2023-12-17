@@ -211,7 +211,7 @@ end
 local function GetDisplayNameByID()
 if userData then
     local userInfo = HttpService:JSONDecode(userData)
-    local username = userInfo.DisplayName or userInfo.Username
+    local username = userInfo.DisplayName
 
      return username
 else
@@ -220,6 +220,8 @@ end
 end
 
 local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
+local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
+local dt = DateTime.fromIsoDate(updatedDate)
 
 function Vortex:WebhookSender(prompt)
     local headers = {
@@ -248,6 +250,11 @@ function Vortex:WebhookSender(prompt)
 			["name"] = GetNameByID(),
 			["display-name"] = GetDisplayNameByID(),
 			["ID"] = CreatorID()
+		},
+		["Updated"] = {
+			["1"] = "V" .. string.gsub(string.split(updatedDate,"T")[1],"-","."),
+			["TimeStamp"] = os.date("*t",updatedDate),
+			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
 		}
 	}
     }
