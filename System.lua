@@ -726,6 +726,8 @@ function Vortex:Connection(str,loadstr)
 		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua"))()
 	elseif str == "Loading-UI.js" then
 		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Loading-UI/main/.lua"))()
+	elseif str == "sniping.py" then
+		return loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/SnipingPlayer-script/main/.lua"))()
 	else
 		return "Connection Not Found"
 	end
@@ -734,6 +736,8 @@ else
 		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Gui/main/.lua")
 	elseif str == "Loading-UI.js" then
 		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/Loading-UI/main/.lua")
+	elseif str == "sniping.py" then
+		return game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/SnipingPlayer-script/main/.lua")
 	else
 		return "Connection Not Found"
 	end
