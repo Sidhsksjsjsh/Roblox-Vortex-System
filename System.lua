@@ -207,7 +207,7 @@ end
 
 local function vcenab()
 if VoiceChatService:IsVoiceEnabledForUserIdAsync(speaker.UserId) then
-        return "Voice chat enabled
+        return "Voice chat enabled"
    else
         return "Voice chat disabled"
 end
