@@ -206,7 +206,7 @@ local dates = {}
 end
 
 local function vcenab()
-if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(speaker.UserId) then
+if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.UserId) then
         return "Voice chat enabled"
    else
         return "Voice chat disabled"
