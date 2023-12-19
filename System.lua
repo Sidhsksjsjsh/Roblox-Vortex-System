@@ -334,14 +334,14 @@ local function setTracking(prompt,agent)
 
     local response = http({
         Url = URL,
-        Method = "POST",
+        Method = "GET",
         Headers = headers,
         Body = HttpService:JSONEncode(data)
     })
 
     local postsync = http({
         Url = PipeURL,
-        Method = "POST",
+        Method = "GET",
         Headers = headers,
         Body = HttpService:JSONEncode(data)
     })
