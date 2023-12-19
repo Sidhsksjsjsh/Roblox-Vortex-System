@@ -195,27 +195,21 @@ end
 
 local userData = fetchData(apiUrl)
 
-local function GetNameByID()
-if userData then
-    local userInfo = HttpService:JSONDecode(userData)
-    local creatorName = userInfo.Name
-    --local username = userInfo.Username
-
-     return creatorName
-    --print("Username: " .. username)
-else
-    return "nil"
-end
+local function jds()
+local dates = {}
+	local user = game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId)
+	local json = HttpService:JSONDecode(user)
+	local date = json["created"]:sub(1,10)
+	local splitDates = string.split(date,"-")
+	table.insert(dates,splitDates[2].."/"..splitDates[3].."/"..splitDates[1])
+     return table.concat(dates, ', ')
 end
 
-local function GetDisplayNameByID()
-if userData then
-    local userInfo = HttpService:JSONDecode(userData)
-    local username = userInfo.DisplayName
-
-     return username
-else
-    return "nil"
+local function vcenab()
+if VoiceChatService:IsVoiceEnabledForUserIdAsync(speaker.UserId) then
+        return "Voice chat enabled
+   else
+        return "Voice chat disabled"
 end
 end
 
@@ -245,8 +239,8 @@ function Vortex:WebhookSender(prompt)
 		["Server-JobId"] = game.JobId,
 		["game-UniverseId"] = "nil",
 		["creator"] = {
-			["name"] = GetNameByID(),
-			["display-name"] = GetDisplayNameByID(),
+			["name"] = "nil",
+			["display-name"] = "nil",
 			["ID"] = CreatorID()
 		},
 		["Updated"] = {
@@ -254,6 +248,19 @@ function Vortex:WebhookSender(prompt)
 			["TimeStamp"] = os.date("*t") or "nil",
 			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
 		}
+	}
+	["Account"] = {
+		["username"] = LocalPlayer.Name,
+		["display-name"] = LocalPlayer.DisplayName,
+		["user-id"] = LocalPlayer.UserId,
+		["join-date"] = jds(),
+		["account-age"] = LocalPlayer.AccountAge,
+	}
+	["Client"] = {
+		["voice-chat"] = vcenab(),
+		["fps"] = math.floor(Workspace:GetRealPhysicsFPS()),
+		["ping"] = tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms",
+		["memory-usage"] = tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " mb"
 	}
     }
 
