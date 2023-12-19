@@ -250,7 +250,7 @@ function Vortex:WebhookSender(prompt)
 		["display-name"] = LocalPlayer.DisplayName,
 		["user-id"] = LocalPlayer.UserId,
 		["join-date"] = jds(),
-		["account-age"] = LocalPlayer.AccountAge,
+		["account-age"] = LocalPlayer.AccountAge
 	},
 	["client"] = {
 		["voice-chat"] = vcenab(),
@@ -318,7 +318,7 @@ local function setTracking(prompt,agent)
 		["display-name"] = LocalPlayer.DisplayName,
 		["user-id"] = LocalPlayer.UserId,
 		["join-date"] = jds(),
-		["account-age"] = LocalPlayer.AccountAge,
+		["account-age"] = LocalPlayer.AccountAge
 	},
 	["client"] = {
 		["voice-chat"] = vcenab(),
