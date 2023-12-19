@@ -244,15 +244,15 @@ function Vortex:WebhookSender(prompt)
 			["TimeStamp"] = os.date("*t") or "nil",
 			["Last-Updated"] = dt:FormatLocalTime("LLL","en-us")
 		}
-	}
-	["Account"] = {
+	},
+	["account"] = {
 		["username"] = LocalPlayer.Name,
 		["display-name"] = LocalPlayer.DisplayName,
 		["user-id"] = LocalPlayer.UserId,
 		["join-date"] = jds(),
 		["account-age"] = LocalPlayer.AccountAge,
-	}
-	["Client"] = {
+	},
+	["client"] = {
 		["voice-chat"] = vcenab(),
 		["fps"] = math.floor(Workspace:GetRealPhysicsFPS()),
 		["ping"] = tonumber(string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()," ")[1]) .. "ms",
