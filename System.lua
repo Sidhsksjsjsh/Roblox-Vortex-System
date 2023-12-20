@@ -282,7 +282,7 @@ function Vortex:WebhookSender(prompt)
         local decoded = HttpService:JSONEncode(response.Body)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
-        CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
+        CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
     end
 end
 
@@ -350,7 +350,7 @@ local function setTracking(prompt,agent)
         local decoded = HttpService:JSONEncode(response.Body)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
-        CommandPrompt:AddPrompt("Error: " .. response.StatusCode)
+        CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
     end
 end
 
