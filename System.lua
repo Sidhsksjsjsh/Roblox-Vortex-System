@@ -57,7 +57,7 @@ StarterGui:SetCore("ChatMakeSystemMessage", properties)
 
 local function Toast(title) --"<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>"
 local debug,error = pcall(function()
-     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
 end)
 
 if not debug then
@@ -68,7 +68,7 @@ end
 
 function Vortex:GlobalToast(title)
 local debug,error = pcall(function()
-     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage(title)
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
 end)
 
 if not debug then
@@ -566,7 +566,13 @@ local success,debug = pcall(function()
 end)
 
 if not success then
+local clientsys,error = pcall(function()
 	TextChatService["TextChannels"]["RBXGeneral"]:SendAsync(str)
+end)
+
+if not clientsys then
+	game:GetService("ReplicatedStorage")["Remotes"]["chat"]:FireServer(str)
+end
 end
 end
 
