@@ -1344,7 +1344,7 @@ end)
 
 return Vortex
 
---Roblox chat translator:
+--[[Roblox chat translator:
 
 if not game['Loaded'] then game['Loaded']:Wait() end; repeat wait(.06) until game:GetService('Players').LocalPlayer ~= nil
 local YourLang = "en" 
@@ -1665,7 +1665,7 @@ function Vortex:TranslatorAPI(Bar)
     end)()
 end
 
---[[HookChat(CBar);
+HookChat(CBar);
 local BindHook = Instance.new('BindableEvent')
 
 local MT = getrawmetatable(game); local NC = MT.__namecall; setreadonly(MT, false)
