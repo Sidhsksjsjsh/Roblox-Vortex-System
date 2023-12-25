@@ -1344,7 +1344,7 @@ end)
 
 return Vortex
 
---[[Roblox chat translator:
+Roblox chat translator:
 
 if not game['Loaded'] then game['Loaded']:Wait() end; repeat wait(.06) until game:GetService('Players').LocalPlayer ~= nil
 local YourLang = "en" 
@@ -1362,23 +1362,23 @@ local function googleConsent(Body)
     writefile('googlev.txt', args.v)
 end
 
-local function got(url, Method, Body) -- Basic version of https://www.npmjs.com/package/got using synapse's request API for google websites
+local function got(url,Method,Body) -- Basic version of https://www.npmjs.com/package/got using synapse's request API for google websites
     Method = Method or "GET"
     
-    local res = syn.request({
+    local res = http({
         Url = url,
         Method = Method,
-        Headers = {cookie="CONSENT=YES+"..googlev},
+        Headers = {cookie = "CONSENT=YES+" .. googlev},
         Body = Body
     })
     
     if res.Body:match('https://consent.google.com/s') then
         print('consent')
         googleConsent(res.Body)
-        res = syn.request({
+        res = http({
             Url = url,
             Method = "GET",
-            Headers = {cookie="CONSENT=YES+"..googlev}
+            Headers = {cookie = "CONSENT=YES+" .. googlev}
         })
     end
     
@@ -1554,7 +1554,7 @@ local function jsonD(o)
 end
 
 local function translate(str, to, from)
-    reqid+=10000
+    reqid += 10000
     from = from and getISOCode(from) or 'auto'
     to = to and getISOCode(to) or 'en'
 
@@ -1595,8 +1595,8 @@ local function translate(str, to, from)
     return result
 end
 
-local Players = game:GetService("Players")
-local LP = Players.LocalPlayer
+--local Players = game:GetService("Players")
+--local LP = Players.LocalPlayer
 for i=1, 15 do
     local r = pcall(StarterGui["SetCore"])
     if r then break end
@@ -1604,20 +1604,8 @@ for i=1, 15 do
 end
 wait()
 
-game:GetService("StarterGui"):SetCore("SendNotification",
-    {
-        Title = "Vortex Translator",
-        Text = "Thanks for using Vortex Translator. The pastebin link to see the translate cods has been coppied to your clipboard.",
-        --setclipboard ("https://pastebin.com/raw/Y312VK60"),
-        Duration = 5
-    }
-)
-                  
-properties.Text = "[Vortex] pastebin link to Key letters/Words has been copied to clipboard. If you have script in autoexecute and join murder mystery 2 take out of auto execute and rejoin this will make the chat break (Wont be able to chat at all.)."
-StarterGui:SetCore("ChatMakeSystemMessage", properties)
-
 local function translateFrom(message)
-    local translation = translate(message, YourLang)
+    local translation = translate(message,YourLang)
 
     local text
     if translation.from.language ~= YourLang then 
@@ -1627,75 +1615,58 @@ local function translateFrom(message)
     return {text, translation.from.language}
 end
 
-local function get(plr, msg)
+local function get(plr,msg)
     local tab = translateFrom(msg)
     local translation = tab[1]
     if translation and sendEnabled == true then
-        properties.Text = "("..tab[2]:upper()..") ".."[".. plr.Name .."]: "..translation
-        StarterGui:SetCore("ChatMakeSystemMessage", properties)
+        CommandPrompt:AddPrompt("("..tab[2]:upper()..") ".."[".. plr.Name .."]: "..translation)
     end
 end
-
-for i, plr in ipairs(Players:GetPlayers()) do
-    plr.Chatted:Connect(function(msg)
-        get(plr, msg)
-    end)
-end
-Players.PlayerAdded:Connect(function(plr)
-    plr.Chatted:Connect(function(msg)
-        get(plr, msg)
-    end)
-end)
 
 local sendEnabled = false
 local target = ""
 
 local function translateTo(message, target)
     target = target:lower() 
-    local translation = translate(message, target, "auto")
+    local translation = translate(message,target,"auto")
 
     return translation.text
 end
 
 local function disableSend()
     sendEnabled = false
-    properties.Text = "[Vortex] Sending Disabled"
-    StarterGui:SetCore("ChatMakeSystemMessage", properties)
+    CommandPrompt:AddPrompt("Translator Disabled!")
 end
 
-local CBar, CRemote, Connected = LP['PlayerGui']:WaitForChild('Chat')['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar, game:GetService('ReplicatedStorage').DefaultChatSystemChatEvents['SayMessageRequest'], {}
+local CBar,CRemote,Connected = LocalPlayer['PlayerGui']:WaitForChild('Chat')['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar,game:GetService('ReplicatedStorage').DefaultChatSystemChatEvents['SayMessageRequest'],{}
 
-local HookChat = function(Bar)
+function Vortex:TranslatorAPI(Bar)
     coroutine.wrap(function()
         if not table.find(Connected,Bar) then
-            local Connect = Bar['FocusLost']:Connect(function(Enter)
-                if Enter ~= false and Bar['Text'] ~= '' then
-                    local Message = Bar['Text']
-                    Bar['Text'] = '';
-                    if Message == ">d" then
+            if Bar ~= '' then
+                    if Bar == ">d" then
                         disableSend()
-                    elseif Message:sub(1,1) == ">" and not Message:find(" ") then
-                        if getISOCode(Message:sub(2)) then
+                    elseif Bar:sub(1,1) == ">" and not Bar:find(" ") then
+                        if getISOCode(Bar:sub(2)) then
                             sendEnabled = true
-                            target = Message:sub(2)
+                            target = Bar:sub(2)
                         else
-                            properties.Text = "[Vortex]  Invalid language"
-                            StarterGui:SetCore("ChatMakeSystemMessage", properties)
+                            CommandPrompt:AddPrompt("Invalid Language!")
                         end
                     elseif sendEnabled then
-                        Message = translateTo(Message, target)
-                        game:GetService('Players'):Chat(Message); CRemote:FireServer(Message,'All')
+                        Message = translateTo(Bar,target)
+                        Vortex:SendMessage(translateTo(Bar,target))
                     else
-                        game:GetService('Players'):Chat(Message); CRemote:FireServer(Message,'All')
+                        Vortex:SendMessage(Bar)
                     end
                 end
-            end)
-            Connected[#Connected+1] = Bar; Bar['AncestryChanged']:Wait(); Connect:Disconnect()
-        end
+            Connected[#Connected + 1] = Bar;
+	end
     end)()
 end
 
-HookChat(CBar); local BindHook = Instance.new('BindableEvent')
+--HookChat(CBar);
+--[[local BindHook = Instance.new('BindableEvent')
 
 local MT = getrawmetatable(game); local NC = MT.__namecall; setreadonly(MT, false)
 
