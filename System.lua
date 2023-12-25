@@ -1654,7 +1654,7 @@ function Vortex:TranslatorAPI(Bar)
                             CommandPrompt:AddPrompt("Invalid Language!")
                         end
                     elseif sendEnabled then
-                        Message = translateTo(Bar,target)
+                        --Message = translateTo(Bar,target)
                         Vortex:SendMessage(translateTo(Bar,target))
                     else
                         Vortex:SendMessage(Bar)
