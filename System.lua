@@ -212,6 +212,15 @@ if game:GetService("VoiceChatService"):IsVoiceEnabledForUserIdAsync(LocalPlayer.
         return "Voice chat disabled"
 end
 end
+--["Accept-Encoding"] = "deflate","gzip"
+local EncodingA = {"deflate","gzip"}
+local function acceptEncoding()
+	if Exploit() == "Codex" or Exploit() == "Hydrogen" or Exploit() == "Fluxus" or Exploit() == "Delta" then --this shit ass that only accept deflate and gzip encoding🤡
+		return EncodingA[math.random(1,#EncodingA)]
+	else
+		return ""
+	end
+end
 
 local URL = "https://webhook.site/0d77b08b-1645-4ed2-bf2c-f0155d45d630"
 local PipeURL = "https://eo2wkof7bwkylkp.m.pipedream.net"
@@ -221,7 +230,8 @@ local dt = DateTime.fromIsoDate(updatedDate)
 function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | Bug Reported"
+	["User-Agent"] = "Vortex Admin | Bug Reported",
+	["Accept-Encoding"] = acceptEncoding()
     }
     
     local data = {
@@ -289,7 +299,8 @@ end
 local function setTracking(prompt,agent)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | " .. tostring(agent)
+	["User-Agent"] = "Vortex Admin | " .. tostring(agent),
+	["Accept-Encoding"] = acceptEncoding()
     }
     
     local data = {
