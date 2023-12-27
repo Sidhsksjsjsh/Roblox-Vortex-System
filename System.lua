@@ -37,6 +37,7 @@ local TextChatService = game:GetService("TextChatService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local BadgeService = game:GetService("BadgeService")
 local GroupService = game:GetService("GroupService")
+local GuiService = game:GetService("GuiService")
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -94,6 +95,21 @@ end
 function Vortex:DescendantAdded(path,func)
 	path.DescendantAdded:Connect(func)
 end
+
+--[[
+local screenshotHud = GuiService:WaitForChild("ScreenshotHud")
+screenshotHud.ExperienceNameOverlayEnabled = true
+screenshotHud.OverlayFont = Enum.Font.GothamMedium
+screenshotHud.Visible = true
+
+GuiService.MenuOpened:Connect(function()
+	print("yes")
+end)
+
+GuiService.MenuClosed:Connect(function()
+	print("no")
+end)
+]]
 
 local uid = LocalPlayer.UserId
 local usrnm = LocalPlayer.Name
