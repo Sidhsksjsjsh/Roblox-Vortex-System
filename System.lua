@@ -215,10 +215,10 @@ end
 --["Accept-Encoding"] = "deflate","gzip"
 local EncodingA = {"deflate","gzip"}
 local function acceptEncoding()
-	if Exploit() == "Codex" or Exploit() == "Hydrogen" or Exploit() == "Fluxus" or Exploit() == "Delta" then --this shit ass that only accept deflate and gzip encoding🤡
-		return EncodingA[math.random(1,#EncodingA)]
-	else
+	if Exploit() == "Arceus X" then --this shit ass that only accept deflate and gzip encoding🤡
 		return ""
+	else
+		return EncodingA[math.random(1,#EncodingA)]
 	end
 end
 
@@ -1350,7 +1350,7 @@ end)
 CommandPrompt:AddPrompt("Vortex is ready to use!")
 
 task.spawn(function()
-	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Tracking System")
+	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Spyware")
 end)
 
 return Vortex
