@@ -29,9 +29,6 @@ local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
 local Players = game.Players
 local LocalPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
-local chr = LocalPlayer.Character
-local hmnd = chr.Humanoid
-local reroot = chr.HumanoidRootPart
 local TweenService = game:GetService("TweenService")
 local TextChatService = game:GetService("TextChatService")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -557,11 +554,11 @@ function Vortex:AddCFrame(array)
 end
 
 function Vortex:Teleport(str)
-	reroot.CFrame = CFrame.new(str.Position)
+	LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(str.Position)
 end
 
 function Vortex:Tween(str)
-	TweenService:Create(reroot,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = CFrame.new(str.Position)}):Play()
+	TweenService:Create(LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false,0),{CFrame = CFrame.new(str.Position)}):Play()
 end
 
 function Vortex:string_upper(str)
