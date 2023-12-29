@@ -35,6 +35,55 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local BadgeService = game:GetService("BadgeService")
 local GroupService = game:GetService("GroupService")
 local GuiService = game:GetService("GuiService")
+local camera = workspace.CurrentCamera
+local arrowDrawing = Drawing.new("Line")
+arrowDrawing.Color = Color3.new(1, 0, 0)
+arrowDrawing.Thickness = 5
+arrowDrawing.Visible = false
+
+function Vortex:createTween(startPos,endPos)
+    local goal = {}
+    goal.Position = endPos
+
+    local info = TweenInfo.new(1)
+    local tween = game:GetService("TweenService"):Create(arrowDrawing,info,goal)
+
+    return tween
+end
+
+function Vortex:findValidTargetPosition(startPosition,targetPosition)
+    local direction = (targetPosition - startPosition).Unit
+    local distance = (targetPosition - startPosition).Magnitude
+
+    local hit, hitPos = workspace:FindPartOnRayWithIgnoreList(
+        Ray.new(startPosition, direction * distance),
+        {LocalPlayer.Character, workspace.IgnoreList}
+    )
+
+    if hit then
+        return hitPos
+    else
+        return targetPosition
+    end
+end
+
+--[[while true do
+    local posisiAwal = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character.HumanoidRootPart.Position or Vector3.new(0, 0, 0)
+    local posisiTujuan = Vector3.new(20, 0, 20)
+    arrowDrawing.Visible = true
+
+    local validTargetPosition = Vortex:findValidTargetPosition(posisiAwal,posisiTujuan)
+
+    local screenPos1 = camera:WorldToViewportPoint(posisiAwal)
+    local screenPos2 = camera:WorldToViewportPoint(validTargetPosition)
+
+    arrowDrawing.From = Vector2.new(screenPos1.X,screenPos1.Y)
+    arrowDrawing.To = Vector2.new(screenPos1.X,screenPos1.Y)
+    local tween = Vortex:createTween(Vector2.new(screenPos1.X,screenPos1.Y),Vector2.new(screenPos2.X,screenPos2.Y))
+    tween:Play()
+
+    wait(1)
+end]]
 
 local properties = {
     Color = Color3.new(1,1,0);
@@ -1033,10 +1082,24 @@ local waypoints = path:GetWaypoints()
 		for waypointIndex, waypoint in pairs(waypoints) do
 			local waypointPosition = waypoint.Position
 			LocalPlayer.Character.Humanoid:MoveTo(waypointPosition)
+			    local posisiAwal = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character.HumanoidRootPart.Position or Vector3.new(0, 0, 0)
+			    local posisiTujuan = waypointPosition
+                            arrowDrawing.Visible = true
+
+                            local validTargetPosition = Vortex:findValidTargetPosition(posisiAwal,posisiTujuan)
+
+                            local screenPos1 = camera:WorldToViewportPoint(posisiAwal)
+                            local screenPos2 = camera:WorldToViewportPoint(validTargetPosition)
+
+                            arrowDrawing.From = Vector2.new(screenPos1.X,screenPos1.Y)
+                            arrowDrawing.To = Vector2.new(screenPos1.X,screenPos1.Y)
+                            local tween = Vortex:createTween(Vector2.new(screenPos1.X,screenPos1.Y),Vector2.new(screenPos2.X,screenPos2.Y))
+                            tween:Play()
 			repeat 
 				distance = (waypointPosition - LocalPlayer.Character.Humanoid.Parent.PrimaryPart.Position).magnitude
 			wait()
 			until distance <= 5
+			arrowDrawing.Visible = false
 	end
     else
            CommandPrompt:AddPrompt("Failed to find path.")
