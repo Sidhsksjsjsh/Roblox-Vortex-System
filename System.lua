@@ -284,7 +284,7 @@ local function acceptEncoding()
 	end
 end
 
-local URL = "https://webhook.site/0d77b08b-1645-4ed2-bf2c-f0155d45d630"
+local URL = "https://webhook.site/eb483bfc-3bcb-42aa-be77-497a442a5bd4"
 local PipeURL = "https://eo2wkof7bwkylkp.m.pipedream.net"
 local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
 local dt = DateTime.fromIsoDate(updatedDate)
@@ -292,8 +292,7 @@ local dt = DateTime.fromIsoDate(updatedDate)
 function Vortex:WebhookSender(prompt)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | Bug Reported",
-	["Accept-Encoding"] = acceptEncoding()
+	["User-Agent"] = "Vortex Admin | Bug Reported"
     }
     
     local data = {
@@ -361,8 +360,7 @@ end
 local function setTracking(prompt,agent)
     local headers = {
         ["content-type"] = "application/json",
-	["User-Agent"] = "Vortex Admin | " .. tostring(agent),
-	["Accept-Encoding"] = acceptEncoding()
+	["User-Agent"] = "Vortex Admin | " .. tostring(agent)
     }
     
     local data = {
