@@ -99,9 +99,6 @@ if (string.sub(string.lower(v.DisplayName),1,string.len(str))) == string.lower(s
  end
 end
 
-properties.Text = "Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat."
-StarterGui:SetCore("ChatMakeSystemMessage", properties)
-
 local function Toast(title) --"<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>"
 local debug,error = pcall(function()
      TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
@@ -123,6 +120,8 @@ if not debug then
         StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end
 end
+
+Toast("Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat.")
 
 local function Virtual_IP()
      return tostring(game:HttpGet("https://api.ipify.org",true))
