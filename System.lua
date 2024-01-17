@@ -101,7 +101,7 @@ end
 
 local function Toast(title) --"<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>"
 local debug,error = pcall(function()
-     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color='rgb(135,206,235)'>" .. tostring(title) .. "</font>")
 end)
 
 if not debug then
@@ -112,7 +112,7 @@ end
 
 function Vortex:GlobalToast(title)
 local debug,error = pcall(function()
-     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color=\'rgb(1,1,0)\'>" .. tostring(title) .. "</font>")
+     TextChatService["TextChannels"]["RBXSystem"]:DisplaySystemMessage("<font color='rgb(135,206,235)'>" .. tostring(title) .. "</font>")
 end)
 
 if not debug then
