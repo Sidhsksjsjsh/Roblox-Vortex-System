@@ -1,4 +1,4 @@
---[[ :/---- test key
+--[[ final
 About this system: 
 This system is an anti-cheat and Loading screen bypass system
 ]]
