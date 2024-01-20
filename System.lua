@@ -807,8 +807,8 @@ end
 end
 
 function Vortex:HumanoidDied(func)
-LocalPlayer.Character.Humanoid.Died:Connect(function()
-	func()
+LocalPlayer.CharacterAdded:connect(function(chrAdded)
+	func(chrAdded)
 end)
 end
 
