@@ -1467,8 +1467,8 @@ function Vortex:WriteCommandPrompt(str)
 end
 
 function Vortex:Player(str)
-for _,v in pairs(Players:GetChildren()) do
-      str(v)
+for i,v in pairs(Players:GetPlayers()) do
+      str(i,v)
 end
 end
 
