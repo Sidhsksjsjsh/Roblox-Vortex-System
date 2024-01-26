@@ -176,6 +176,8 @@ function Vortex:CreateESPTag(params)
 
 function etag:BreakTag()
 	if rfunc then
+		rfunc:Disconnect()
+		rfunc = nil
 		esp:Destroy()
 		esplabelfr:Destroy()
 		tracerLine:Destroy()
