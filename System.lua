@@ -36,6 +36,7 @@ local BadgeService = game:GetService("BadgeService")
 local GroupService = game:GetService("GroupService")
 local GuiService = game:GetService("GuiService")
 local camera = workspace.CurrentCamera
+local rfunc = nil
 local arrowDrawing = Drawing.new("Line")
 arrowDrawing.Color = Color3.new(1, 0, 0)
 arrowDrawing.Thickness = 5
@@ -54,6 +55,7 @@ function Vortex:CreateESPTag(params)
     local TrailColor = params.TrailColor or {Color3.new(255, 0, 0)}
     local TrailWidth = params.TrailWidth or {2}
     local EnableBoxESP = params.EnableBoxESP or false 
+    local etag = {}
 
     if #TrailColor < 2 then
         TrailColor[2] = TrailColor[1]
@@ -64,7 +66,7 @@ function Vortex:CreateESPTag(params)
     end
     
     if Highlight == true then
-        local a = Instance.new("Highlight", Part)
+        local a = Instance.new("Highlight",Part)
         a.FillTransparency = 1
         a.OutlineColor = Outline
     end
@@ -170,11 +172,23 @@ function Vortex:CreateESPTag(params)
         end
     end
 
-    RunService.RenderStepped:Connect(updateesplabelfr)
+    rfunc = RunService.RenderStepped:Connect(updateesplabelfr)
+
+function etag:BreakTag()
+	if rfunc then
+		esp:Destroy()
+		esplabelfr:Destroy()
+		tracerLine:Destroy()
+		trail:Destroy()
+		Part:FindFirstChild("Highlight"):Destroy()
+		Part:FindFirstChild("BoxHandleAdornment"):Destroy()
+	end
+end
+--end
 end
 
 --[[
-trail mode : Vortex:CreateESPTag({
+trail mode : local tag = Vortex:CreateESPTag({
     Text = "Part",
     Part = workspace.SpawnLocation,
     TextSize = 7,
@@ -188,7 +202,7 @@ trail mode : Vortex:CreateESPTag({
     TrailWidth = {2,4}
 })
 
-tracers mode: Vortex:CreateESPTag({
+tracers mode: local tag = Vortex:CreateESPTag({
     Text = "Part",
     Part = game.Workspace.nil,
     TextSize = 7,
@@ -199,6 +213,8 @@ tracers mode: Vortex:CreateESPTag({
     BoxColor = Color3.new(255,255,255),
     TracerColor = Color3.new(255,0,0)
 })
+
+tag:BreakTag()
 ]]
 
 function Vortex:createTween(startPos,endPos)
