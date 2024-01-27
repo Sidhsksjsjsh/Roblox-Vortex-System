@@ -186,6 +186,7 @@ function etag:BreakTag()
 		Part:FindFirstChild("BoxHandleAdornment"):Destroy()
 	end
 end
+	return etag
 --end
 end
 
