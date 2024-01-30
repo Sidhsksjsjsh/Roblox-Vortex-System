@@ -1120,8 +1120,8 @@ local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
 		ScreenGui.Enabled = false
 	    end)
 
-Vortex:Descendants(game:GetService("ReplicatedStorage"),function(id,vr)
-	if vr.Name == "__FUNCTION" or vr.Name == "__FUNCTIONS" then
+Vortex:Descendants(game:GetService("ReplicatedStorage"),function(vr)
+	if vr.Name == "__FUNCTION" or vr.Name == "__FUNCTIONS" then -- Adonis remote to kick the players
 		ScreenGui.Enabled = true
 	end
 end)
