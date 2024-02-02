@@ -1701,9 +1701,9 @@ end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
 
-task.spawn(function()
-	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Spyware")
-end)
+--task.spawn(function()
+--	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Spyware")
+--end)
 
 return Vortex
 
