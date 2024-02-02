@@ -970,6 +970,10 @@ function Vortex:AdonisBypass(versionbypass)
           if not success then
                FuckAdonisV2()
           end
+     elseif versionbypass == "all" or versionbypass == "All" then
+	  FuckAdonisV1()
+	  FuckAdonisV2()
+	  FuckAdonisV3()
      else
           warn("Invalid Argument #1 \nargument 'version_type'")
      end
@@ -1109,7 +1113,7 @@ local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
             UICorner_3.CornerRadius = UDim.new(.1, 0)
             UICorner_3.Parent = TextButton_2
             TextButton.MouseButton1Click:Once(function()
-		Vortex:AdonisBypass("V3")
+		Vortex:AdonisBypass("all")
 		TextLabel.Text = "Bypasser is running, dont close this window.\nthis will automatically close this window."
 		TextButton.Text = "(...)"
 		TextButton_2.Text = "(...)"
