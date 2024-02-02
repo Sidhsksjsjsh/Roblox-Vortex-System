@@ -540,7 +540,7 @@ function Vortex:WebhookSender(prompt)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
         --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
-	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK",""})
+	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK & CLOSE","CLOSE"})
     end
 end
 
@@ -609,7 +609,7 @@ local function setTracking(prompt,agent)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
         --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
-	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK",""})
+	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK & CLOSE","CLOSE"})
     end
 end
 
@@ -1550,7 +1550,7 @@ if index then
 	CommandPrompt:AddPrompt("Loaded!")
 	Console:Error("Loaded!")
 else
-	Vortex:SetUserPrompt(error,{"OK",""})
+	Vortex:SetUserPrompt(error,{"OK & RUN","CLOSE"})
 	setTracking(error,"Ricochet Analysis System")
 end
 end
