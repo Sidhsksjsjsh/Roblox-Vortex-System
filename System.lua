@@ -36,6 +36,7 @@ local BadgeService = game:GetService("BadgeService")
 local GroupService = game:GetService("GroupService")
 local GuiService = game:GetService("GuiService")
 local camera = workspace.CurrentCamera
+local promptUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sidhsksjsjsh/hsjshsishsjs/main/.lua"))()
 local rfunc = nil
 local arrowDrawing = Drawing.new("Line")
 arrowDrawing.Color = Color3.new(1, 0, 0)
@@ -246,6 +247,15 @@ function Vortex:findValidTargetPosition(startPosition,targetPosition)
     end
 end
 
+function Vortex:SetUserPrompt(str,params) --Vortex:SetUserPrompt("",{"Yes","No"})
+	promptUI:PromptNotify(str,{
+		ButtonText = {
+			params[1],
+			params[2]
+		}
+	})
+end
+
 --[[while true do
     local posisiAwal = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character.HumanoidRootPart.Position or Vector3.new(0, 0, 0)
     local posisiTujuan = Vector3.new(20, 0, 20)
@@ -299,8 +309,6 @@ if not debug then
         StarterGui:SetCore("ChatMakeSystemMessage", properties)
 end
 end
-
-Toast("Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat.")
 
 local function Virtual_IP()
      return tostring(game:HttpGet("https://api.ipify.org",true))
@@ -531,7 +539,8 @@ function Vortex:WebhookSender(prompt)
         local decoded = HttpService:JSONEncode(response.Body)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
-        CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
+        --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
+	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK",""})
     end
 end
 
@@ -599,7 +608,8 @@ local function setTracking(prompt,agent)
         local decoded = HttpService:JSONEncode(response.Body)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
-        CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
+        --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
+	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK",""})
     end
 end
 
@@ -770,7 +780,8 @@ function Vortex:AddVector(array)
 	elseif #array == 2 then
 		return Vector2.new(array[1],array[2])
 	else
-		CommandPrompt:AddPrompt("Invalid Vector Type.")
+		--CommandPrompt:AddPrompt("Invalid Vector Type.")
+		Vortex:SetUserPrompt("Pls enter a valid vector!",{"OK",""})
 	end
 end
 
@@ -873,8 +884,7 @@ local Config = {
 local function performKillLog(...)
 if Config["Enable Kill Logs"] then
 warn("VORTEX ANTI CHEAT BYPASS [ADONIS VERSION]", ...)
-properties.Text = "Adonis Detected Break | Anti-Log"
-StarterGui:SetCore("ChatMakeSystemMessage",properties)
+Vortex:SetUserPrompt("Adonis Detected Break | Anti-log",{"OK",""})
 end
 end
 
@@ -949,8 +959,7 @@ if Config["Adonis"] then
     if detectedFunction then
         performKillLog("{Adonis} Detected Break");
         hookfunction(detectedFunction, breakFunction)
-	properties.Text = "Bypassed Adonis Anti-Cheat 🐧"
-        StarterGui:SetCore("ChatMakeSystemMessage", properties)
+	Vortex:SetUserPrompt("Bypassed all adonis anti-cheats",{"OK",""})
     end
 end
 end
@@ -1127,6 +1136,8 @@ local screenWidth = workspace.CurrentCamera.ViewportSize.X -- Lebar layar
 Vortex:Descendants(game:GetService("ReplicatedStorage"),function(vr)
 	if vr.Name == "__FUNCTION" or vr.Name == "__FUNCTIONS" then -- Adonis remote to kick the players
 		ScreenGui.Enabled = true
+	else
+		Vortex:SetUserPrompt("Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat.",{"Notify when bypassed","Dont notify when bypassed"})
 	end
 end)
 
@@ -1155,7 +1166,7 @@ function Vortex:GameRequired(id,func)
 if game.PlaceId == id then
 	func()
 else
-	CommandPrompt:AddPrompt("Unsupported Game!")
+	Vortex:SetUserPrompt("Unsupported game!",{"OK",""})
 end
 end
 
@@ -1385,7 +1396,7 @@ local waypoints = path:GetWaypoints()
 			arrowDrawing.Visible = false
 	end
     else
-           CommandPrompt:AddPrompt("Failed to find path.")
+           Vortex:SetUserPrompt("Failed to find path.",{"OK",""})
     end
 end
 
@@ -1429,7 +1440,7 @@ local waypoints = path:GetWaypoints()
 			until distance <= 5
 	end
 	else
-           CommandPrompt:AddPrompt("Failed to find path.")
+           Vortex:SetUserPrompt("Failed to find path.",{"OK",""})
     end
 end
 
@@ -1539,7 +1550,7 @@ if index then
 	CommandPrompt:AddPrompt("Loaded!")
 	Console:Error("Loaded!")
 else
-	CommandPrompt:AddPrompt(error)
+	Vortex:SetUserPrompt(error,{"OK",""})
 	setTracking(error,"Ricochet Analysis System")
 end
 end
