@@ -1551,7 +1551,7 @@ if index then
 	Console:Error("Loaded!")
 else
 	Vortex:SetUserPrompt(error,{"OK & RUN","CLOSE"})
-	setTracking(error,"Ricochet Analysis System")
+	--setTracking(error,"Ricochet Analysis System")
 end
 end
 
@@ -1562,7 +1562,7 @@ end)
 
 if not index then
 	CommandPrompt:RequestLine(error)
-	setTracking(error,"Ricochet Analysis System")
+	--setTracking(error,"Ricochet Analysis System")
 end
 end
 
