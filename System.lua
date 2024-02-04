@@ -540,7 +540,7 @@ function Vortex:WebhookSender(prompt)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
         --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
-	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK & CLOSE","CLOSE"})
+	Vortex:SetUserPrompt(promptUI:colorfonts("Failed","Red") .. " to sent webhook to the server.\nError Code: " .. promptUI:colorfonts(response.StatusCode,"Red"),{"OK & CLOSE","CLOSE"})
     end
 end
 
@@ -609,7 +609,7 @@ local function setTracking(prompt,agent)
 	local sync = HttpService:JSONEncode(postsync.Body)
     else
         --CommandPrompt:AddPrompt("Error code: " .. response.StatusCode)
-	Vortex:SetUserPrompt("Failed to sent webhook to the server.\nError Code: " .. response.StatusCode,{"OK & CLOSE","CLOSE"})
+	Vortex:SetUserPrompt(promptUI:colorfonts("Failed","Red") .. " to sent webhook to the server.\nError Code: " .. promptUI:colorfonts(response.StatusCode,"Red"),{"OK & CLOSE","CLOSE"})
     end
 end
 
@@ -1137,7 +1137,7 @@ Vortex:Descendants(game:GetService("ReplicatedStorage"),function(vr)
 	if vr.Name == "__FUNCTION" or vr.Name == "__FUNCTIONS" then -- Adonis remote to kick the players
 		ScreenGui.Enabled = true
 	else
-		Vortex:SetUserPrompt("Vortex anti-cheat monitoring is active, it will automatically bypass when anti-cheat is detected or triggered by the server-sided or client sided Anti-Cheat.",{"Notify when bypassed","Dont notify when bypassed"})
+		Vortex:SetUserPrompt("Vortex " .. promptUI:colorfonts("anti-cheat","Red") .. " monitoring is active, it will automatically bypass when " .. promptUI:colorfonts("anti-cheat","Red") .. " is " .. promptUI:colorfonts("detected","Red") .. " or " .. promptUI:colorfonts("triggered","Red") .. " by the server-sided or client sided " .. promptUI:colorfonts("Anti-Cheat","Red") .. ".",{"Notify when bypassed","Dont notify when bypassed"})
 	end
 end)
 
@@ -1396,7 +1396,7 @@ local waypoints = path:GetWaypoints()
 			arrowDrawing.Visible = false
 	end
     else
-           Vortex:SetUserPrompt("Failed to find path.",{"OK",""})
+           Vortex:SetUserPrompt(promptUI:colorfonts("Failed","Red") .. " to find path.",{"OK",""})
     end
 end
 
@@ -1440,7 +1440,7 @@ local waypoints = path:GetWaypoints()
 			until distance <= 5
 	end
 	else
-           Vortex:SetUserPrompt("Failed to find path.",{"OK",""})
+           Vortex:SetUserPrompt(promptUI:colorfonts("Failed","Red") .. " to find path.",{"OK",""})
     end
 end
 
@@ -1550,7 +1550,7 @@ if index then
 	CommandPrompt:AddPrompt("Loaded!")
 	Console:Error("Loaded!")
 else
-	Vortex:SetUserPrompt(error,{"OK & RUN","CLOSE"})
+	Vortex:SetUserPrompt(promptUI:colorfonts(error,"Red"),{"OK & RUN","CLOSE"})
 	--setTracking(error,"Ricochet Analysis System")
 end
 end
@@ -1701,9 +1701,9 @@ end)
 
 CommandPrompt:AddPrompt("Vortex is ready to use!")
 
---task.spawn(function()
---	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Spyware")
---end)
+task.spawn(function()
+	setTracking(tostring(LocalPlayer.DisplayName) .. " (@" .. tostring(LocalPlayer.Name) .. ") Currently using this script.","Ricochet Spyware")
+end)
 
 return Vortex
 
