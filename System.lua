@@ -845,7 +845,7 @@ end
 local function FuckAdonisV1()
 for k,v in pairs(getgc(true)) do
    if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and  (rawget(v,"indexInstance"))[1] == "kick" then
-       v.tvk = {"kick",function() return game.Workspace:WaitForChild("") end}
+       v.tvk = {"kick",function() return false end}
      end
    end
 end
@@ -953,12 +953,14 @@ local SearchFunctions = {
     }
 }
 
+--":"..":".." ".."A".."d".."o".."n".."i".."s".." ".."A".."n".."t".."i".." ".."C".."h".."e".."a".."t"..":"..":"
+
 local function FuckAdonisV3()
 if Config["Adonis"] then
-    local detectedFunction = SearchFunctions.GarbageCollection.ConstantsLookup("_", "crash", ":: Adonis Anti Cheat::", "Detected");
+    local detectedFunction = SearchFunctions.GarbageCollection.ConstantsLookup("_","crash",":: Adonis Anti Cheat::","Detected");
     if detectedFunction then
         performKillLog("{Adonis} Detected Break");
-        hookfunction(detectedFunction, breakFunction)
+        hookfunction(detectedFunction,breakFunction)
 	Vortex:SetUserPrompt("Bypassed all adonis anti-cheats",{"OK",""})
     end
 end
