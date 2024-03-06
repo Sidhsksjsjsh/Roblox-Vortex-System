@@ -1670,7 +1670,7 @@ Players.PlayerRemoving:Connect(function(player)
 	Toast("[ Vortex Detector ]: " .. tostring(player.DisplayName) .. " (@" .. tostring(player.Name) .. ") Has left experience.")
 end)
 
-for i,v in pairs(game.Players:GetChildren()) do
+--[[for i,v in pairs(game.Players:GetChildren()) do
 if v.Name ~= LocalPlayer then
     v.Chatted:Connect(function(msg)
 	if isBannedWord(msg) then
@@ -1693,6 +1693,7 @@ if player.Name ~= LocalPlayer then
     end)
 end
 end)
+]]
 
 UserInputService.InputBegan:Connect(function(KeyPressed)
 if KeyPressed.KeyCode == Enum.KeyCode.E then
